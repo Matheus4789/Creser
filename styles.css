@@ -771,3 +771,204 @@ p {
         transform: scale(1);
     }
 }
+
+/* --- ATIVIDADES PAGE SPECIFIC --- */
+.atividades-page {
+    background: linear-gradient(to bottom, var(--color-cream), #FFFFFF);
+}
+
+.atividades-header {
+    padding: 3rem 1rem;
+    position: relative;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Planner */
+.planner-form {
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.planner-input, .planner-select {
+    padding: 0.8rem;
+    border: 1px solid var(--color-sand);
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    background: white;
+}
+
+.planner-input {
+    flex: 1;
+}
+
+.planner-select {
+    flex: 2;
+}
+
+.btn-add {
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    border-radius: 12px;
+}
+
+.planner-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.planner-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-sand);
+}
+
+.p-time {
+    font-weight: 600;
+    color: var(--color-eucalyptus-dark);
+    margin-right: 1rem;
+}
+
+.p-type {
+    flex: 1;
+    font-size: 1rem;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-delete:hover {
+    color: #ff6b6b;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--color-text-light);
+    font-style: italic;
+    padding: 1rem;
+}
+
+/* Counters */
+.counters-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.counter-box {
+    flex: 1;
+    background: white;
+    border: 1px solid var(--color-sand);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.counter-box h4 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.counter-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--color-eucalyptus);
+    background: transparent;
+    color: var(--color-eucalyptus-dark);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-circle:hover {
+    background: var(--color-eucalyptus);
+    color: white;
+}
+
+.counter-value {
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    min-width: 40px;
+}
+
+/* Checklists Tabs Adjustments */
+.checklist-tabs {
+    justify-content: flex-start;
+    border-bottom: 1px solid var(--color-sand);
+    padding-bottom: 10px;
+}
+.checklist-tabs .tab-btn {
+    border: none;
+    border-radius: 0;
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+.checklist-tabs .tab-btn.active {
+    background: transparent;
+    color: var(--color-eucalyptus-dark);
+}
+.checklist-tabs .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-eucalyptus);
+}
+.no-min-height {
+    min-height: auto;
+}
+.divider {
+    height: 1px;
+    background: var(--color-sand);
+    margin: 2rem 0;
+}
+
+/* CTA Planner */
+.cta-planner-section {
+    padding: 4rem 2rem;
+}
+.cta-planner-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(168, 181, 166, 0.2));
+}
