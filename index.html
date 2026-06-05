@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diário do Desenvolvimento - Primeiros 30 Dias. Ajude-me a creSer - Acompanhe cada marco, registre cada conquista.">
+    <title>Ajude-me a creSer | Primeiros 30 Dias</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Feather Icons for minimalist SVG icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content fade-in-up">
+            <h2 class="pre-title">Ajude-me a</h2>
+            <h1 class="main-title">creSer</h1>
+            <p class="subtitle">Acompanhe cada marco. Registre cada conquista. Estimule com afeto e intenção.</p>
+            <a href="#marcos" class="btn-primary">Explorar o 1º Mês</a>
+            <div class="hero-author">
+                <p>Rita Nunes</p>
+                <span>Psicóloga, Neuropsicóloga e Mãe da Olívia, da Nina e da Martina</span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i data-feather="chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- DID YOU KNOW HIGHLIGHT -->
+    <section class="highlight-section container fade-in-up">
+        <div class="glass-card text-center highlight-card">
+            <span class="tag">Você sabia?</span>
+            <h3>O cérebro do seu bebê forma 1 milhão de conexões por segundo.</h3>
+            <p>Cada toque, cada olhar e cada palavra está moldando a arquitetura cerebral do seu recém-nascido.</p>
+        </div>
+    </section>
+
+    <!-- MARCOS TIMELINE -->
+    <section id="marcos" class="timeline-section container">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">O Que Esperar</h2>
+            <p>Os principais marcos e desenvolvimentos do primeiro mês.</p>
+        </div>
+        
+        <div class="timeline-container fade-in-up">
+            <!-- Timeline items will be injected by JS -->
+            <div class="timeline-track" id="timeline-track"></div>
+            <div class="timeline-content-display glass-card" id="timeline-display">
+                <h3 id="td-title">Selecione um marco</h3>
+                <p id="td-desc">Explore a linha do tempo acima para descobrir como o cérebro e o corpo do seu bebê se desenvolvem nos primeiros 30 dias.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTIMULAÇÃO (TABS) -->
+    <section id="estimulacao" class="stimulation-section">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">Como Estimular</h2>
+                <p>O cérebro forma milhões de conexões. Experiências sensoriais positivas são cruciais.</p>
+            </div>
+
+            <div class="tabs-container fade-in-up">
+                <div class="tabs-nav" id="tabs-nav">
+                    <button class="tab-btn active" data-target="tab-visual">Visual</button>
+                    <button class="tab-btn" data-target="tab-auditiva">Auditiva</button>
+                    <button class="tab-btn" data-target="tab-tatil">Tátil</button>
+                    <button class="tab-btn" data-target="tab-motora">Motora</button>
+                    <button class="tab-btn" data-target="tab-multi">Multissensorial</button>
+                </div>
+                
+                <div class="tabs-content-wrapper glass-card">
+                    <div class="tab-pane active" id="tab-visual">
+                        <h3>Estimulação Visual</h3>
+                        <ul>
+                            <li><strong>Contato próximo:</strong> Mantenha o rosto a 20-30 cm. Faça caretas suaves, sorria e mantenha o olhar.</li>
+                            <li><strong>Alto contraste:</strong> Mostre cartões ou objetos em preto e branco, listras ou padrões simples. Movimente devagar.</li>
+                            <li><strong>Luz natural suave:</strong> Exposição a sombras ou luz filtrada ajuda na maturação visual e no ritmo circadiano.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="tab-auditiva">
+                        <h3>Estimulação Auditiva</h3>
+                        <ul>
+                            <li><strong>Converse diariamente:</strong> Use "parentese" (voz melodiosa, lenta e aguda). Narre o que está fazendo.</li>
+                            <li><strong>Cante e faça sons:</strong> Canções de ninar ou imitação de sons suaves ativam a memória auditiva.</li>
+                            <li><strong>Turn-taking:</strong> Responda aos grunhidos dele como em uma conversa real.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="tab-tatil">
+                        <h3>Estimulação Tátil</h3>
+                        <ul>
+                            <li><strong>Pele a pele:</strong> Diariamente. Regula temperatura, batimentos e reduz o cortisol.</li>
+                            <li><strong>Massagem suave:</strong> Após o banho, com óleo. Melhora a maturação cerebral.</li>
+                            <li><strong>Texturas diferentes:</strong> Toque mãozinhas e pezinhos com tecidos macios, pelúcia ou dedos.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="tab-motora">
+                        <h3>Estimulação Motora</h3>
+                        <ul>
+                            <li><strong>Tummy time:</strong> 1-3 minutos, 2-3x ao dia (de bruços, supervisionado). Fortalece pescoço e tronco.</li>
+                            <li><strong>Movimentos suaves:</strong> "Pedalar" perninhas, abrir/fechar mãozinhas.</li>
+                            <li><strong>Posições variadas:</strong> Segurar de frente, de lado ou no ombro estimula grupos musculares diferentes.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="tab-multi">
+                        <h3>Olfato e Multissensorial</h3>
+                        <ul>
+                            <li><strong>Estimulação Olfativa:</strong> Exposição ao cheiro dos pais (roupa usada ou pele).</li>
+                            <li><strong>Integração Multissensorial:</strong> Durante a mamada ou troca, fale, faça contato visual e toque carinhoso.</li>
+                            <li><strong>Banho e Passeio:</strong> Água morna + voz calma. Passeios breves com sons da natureza.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DICAS & AMAMENTAÇÃO MASONRY -->
+    <section id="guias" class="guides-section container">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Orientações Essenciais</h2>
+        </div>
+        
+        <div class="masonry-grid">
+            <div class="masonry-card glass-card fade-in-up">
+                <i data-feather="heart" class="card-icon"></i>
+                <h3>Amamentação</h3>
+                <p>Ofereça em livre demanda. Frequência de 8 a 12 mamadas/24h no início. Sinais de saciedade: mãos relaxadas e solta o peito espontaneamente. Não se esqueça de beber muita água!</p>
+            </div>
+            
+            <div class="masonry-card glass-card fade-in-up" style="transition-delay: 100ms;">
+                <i data-feather="clock" class="card-icon"></i>
+                <h3>Rotina do Recém-nascido</h3>
+                <p>Guiada pelo bebê. Ciclo básico: mamar → acordado brevemente → dormir (2-3 horas). Flexibilidade é chave, a rotina serve como guia, não como regra absoluta.</p>
+            </div>
+
+            <div class="masonry-card glass-card fade-in-up highlight" style="transition-delay: 200ms;">
+                <i data-feather="alert-circle" class="card-icon"></i>
+                <h3>O Que Ninguém Te Conta</h3>
+                <p>O *baby blues* afeta até 80% das mães. Noites serão longas, o bebê pode parecer "estranho" com bolinhas e espirros. Nem sempre o amor é instantâneo — o vínculo se constrói dia a dia.</p>
+            </div>
+            
+            <div class="masonry-card glass-card fade-in-up" style="transition-delay: 300ms;">
+                <i data-feather="book-open" class="card-icon"></i>
+                <h3>Dicas de Pesquisa</h3>
+                <p>Sessões de estímulo devem ser curtas (5-10 min). Evite telas, barulhos altos ou luzes piscando. Responsividade fortalece o apego seguro.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ATIVIDADES INTERATIVAS -->
+    <section id="atividades" class="activities-section container">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Meu Diário Interativo</h2>
+            <p>Ferramentas práticas para apoiar sua jornada diária, registrar marcos e cuidar de você.</p>
+        </div>
+        
+        <div class="activities-grid">
+            <!-- Checklist -->
+            <div class="activity-card glass-card fade-in-up">
+                <h3><i data-feather="check-square" class="inline-icon"></i> Checklist de Hoje</h3>
+                <p>Marque as pequenas vitórias do dia a dia (salvo automaticamente).</p>
+                <div class="checklist-container" id="daily-checklist">
+                    <!-- Itens gerados por JS -->
+                </div>
+                <button id="reset-checklist" class="btn-text">Começar novo dia</button>
+            </div>
+
+            <!-- Mood Tracker -->
+            <div class="activity-card glass-card fade-in-up" style="transition-delay: 100ms;">
+                <h3><i data-feather="smile" class="inline-icon"></i> Como você se sente hoje?</h3>
+                <p>Acolha suas emoções. Você não precisa dar conta de tudo sempre.</p>
+                <div class="mood-tracker">
+                    <button class="mood-btn" data-mood="calma" title="Calma">😌</button>
+                    <button class="mood-btn" data-mood="cansada" title="Cansada">🥱</button>
+                    <button class="mood-btn" data-mood="sobrecarregada" title="Sobrecarregada">🤯</button>
+                    <button class="mood-btn" data-mood="feliz" title="Feliz">🥰</button>
+                    <button class="mood-btn" data-mood="chorosa" title="Chorosa">😢</button>
+                </div>
+                <div id="mood-response" class="mood-message"></div>
+            </div>
+
+            <!-- Respiração Guiada -->
+            <div class="activity-card glass-card fade-in-up" style="transition-delay: 200ms;">
+                <h3><i data-feather="wind" class="inline-icon"></i> Minuto de Calma</h3>
+                <p>O seu bem-estar ajuda a regular o bebê. Acompanhe a animação.</p>
+                <div class="breathing-widget">
+                    <div class="breathing-circle" id="b-circle">
+                        <span id="b-text">Iniciar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CTA -->
+    <footer class="footer fade-in-up">
+        <div class="container text-center">
+            <h2 class="footer-quote">"Você não precisa ser perfeita. Precisa apenas estar presente."</h2>
+            <p class="footer-desc">Cada toque, cada olhar, cada palavra suave está construindo o cérebro e o coração do seu bebê — sinapse a sinapse, amor a amor.</p>
+            
+            <div class="cta-box glass-card">
+                <h3>Diário do Desenvolvimento Infantil (0 a 3 anos)</h3>
+                <p>Ebook completo disponível em Junho de 2026</p>
+                <span class="hashtag">#AjudeMeACreSer</span>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Baseado nos estudos da neurociência (2024-2026). Desenvolvido com carinho.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
