@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Marcos do Desenvolvimento</title>
+    <style>
+        /* 
+         * =========================================
+         * ESTILOS GERAIS E CORES
+         * =========================================
+         * Aqui definimos as cores usadas em todo o site.
+         */
+        :root {
+            /* Paleta Base do Site */
+            --cor-social: #D27D60; /* Terracotta */
+            --cor-linguagem: #8A9A88; /* Eucalyptus Escuro */
+            --cor-cognitivo: #D4C3AC; /* Sand Escuro */
+            --cor-motor-grosso: #A8B5A6; /* Eucalyptus */
+            --cor-motor-fino: #E8DCCB; /* Sand */
+            
+            /* Paleta Base */
+            --cor-fundo: #FAF8F5; /* Cream */
+            --cor-texto: #3A3530; /* Charcoal */
+            --cor-texto-claro: #5A544D;
+            --cor-borda: #E8DCCB;
+            --cor-branco: #FFFFFF;
+            
+            /* Gradiente do cabeçalho */
+            --gradiente-topo: linear-gradient(135deg, #A8B5A6, #8A9A88);
+            
+            /* Sem sombras para visual mais limpo e estilo PDF */
+            --sombra-card: none;
+            --raio-borda: 8px;
+        }
+
+        @page {
+            margin: 0; /* Remove a margem forçada do navegador para podermos preencher a cor até o final */
+            size: A4;
+        }
+
+        /* Estrutura para margens de impressão perfeitas */
+        .print-table { display: block; }
+        .print-thead, .print-tfoot { display: none; }
+        .print-tbody, .print-tr, .print-td { display: block; }
+
+        @media print {
+            html, body { 
+                background-color: var(--cor-fundo) !important; 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+                margin: 0;
+            }
+            
+            /* Transforma em tabela apenas na impressão para criar margens seguras no topo e fim de cada página */
+            .print-table { display: table; width: 100%; border-collapse: collapse; }
+            .print-thead { display: table-header-group; }
+            .print-tfoot { display: table-footer-group; }
+            .print-tbody { display: table-row-group; }
+            .print-tr { display: table-row; }
+            .print-td { display: table-cell; padding: 0; }
+            .print-thead div, .print-tfoot div { height: 15mm; }
+
+            /* Margens de segurança laterais colocadas como padding interno */
+            .container { 
+                max-width: 100%; 
+                padding: 0 15mm !important; 
+            }
+            .topo { 
+                border-radius: 0; 
+                padding: 20px 15mm !important; 
+                box-shadow: none; 
+            }
+            .card-etapa { 
+                margin-bottom: 20px; 
+                border: 1px solid #CCC; 
+                page-break-before: always; /* Faz com que cada etapa comece em uma página nova */
+            }
+            .alertas-secao, footer { 
+                margin-bottom: 20px; 
+                border: 1px solid #CCC; 
+            }
+            .cabecalho-etapa {
+                page-break-after: avoid; /* Impede o título de ficar sozinho no fim da folha */
+            }
+            .legenda-box { border: 1px solid #CCC; }
+            .btn-download-flutuante { display: none !important; }
+            
+            /* Desativa o grid na impressão para manter a ordem e evitar bugs de quebra de página */
+            .grid-dominios {
+                display: block !important;
+            }
+            .dominio-secao {
+                margin-bottom: 15px;
+                page-break-inside: avoid; /* Evita quebrar no meio de um domínio, mas permite quebrar entre domínios */
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 
+         * =========================================
+         * CABEÇALHO (TOPO)
+         * =========================================
+         */
+        .topo {
+            background: var(--gradiente-topo);
+            color: var(--cor-branco);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            margin-bottom: 30px;
+            box-shadow: none;
+        }
+
+        .topo h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .topo .subtitulo {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 15px auto;
+            opacity: 0.9;
+        }
+
+        .topo .credibilidade {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-style: italic;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        /* Card e Cabeçalho ajustados para PDF */
+
+        /* 
+         * =========================================
+         * AVISO E LEGENDA
+         * =========================================
+         */
+        .aviso {
+            background-color: #FFF3CD;
+            color: #856404;
+            padding: 20px;
+            border-radius: var(--raio-borda);
+            margin-bottom: 30px;
+            border-left: 5px solid #FFEBA8;
+            font-size: 0.95rem;
+        }
+
+        .legenda-box {
+            background: var(--cor-branco);
+            padding: 20px;
+            border-radius: var(--raio-borda);
+            margin-bottom: 30px;
+            box-shadow: var(--sombra-card);
+        }
+
+        .legenda-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .legenda-itens {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cor-bolinha {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* 
+         * =========================================
+         * CARDS DAS ETAPAS
+         * =========================================
+         */
+        .card-etapa {
+            background: var(--cor-branco);
+            border-radius: var(--raio-borda);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--sombra-card);
+            border: 1px solid var(--cor-borda);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card-etapa.destaque {
+            border: 2px solid var(--cor-cognitivo);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(106, 76, 147, 0.15);
+        }
+
+        .cabecalho-etapa {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--cor-borda);
+            padding-bottom: 15px;
+        }
+
+        .numero-etapa {
+            background: var(--gradiente-topo);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .titulo-etapa-text h2 {
+            font-size: 1.4rem;
+            color: var(--cor-texto);
+            margin-bottom: 5px;
+        }
+
+        .titulo-etapa-text p {
+            color: var(--cor-texto-claro);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Oculta progresso na versão PDF */
+        .progresso-etapa-mini {
+            display: none;
+        }
+
+        /* Grid dos domínios (Responsivo) */
+        .grid-dominios {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-dominios {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Seção de cada Domínio */
+        .dominio-secao {
+            background: #FAFAFA;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #CCC; /* Cor definida via CSS inline dependendo do tipo */
+        }
+
+        .dominio-titulo {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        /* Checkboxes Customizados */
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-top: 4px;
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--cor-cognitivo);
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: var(--cor-texto);
+            flex: 1;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + label {
+            color: var(--cor-texto-claro);
+            text-decoration: line-through;
+        }
+
+        /* 
+         * =========================================
+         * SINAIS DE ALERTA
+         * =========================================
+         */
+        .alertas-secao {
+            margin-top: 50px;
+        }
+
+        .alertas-secao h2 {
+            font-size: 1.8rem;
+            color: var(--cor-social);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .aviso-alerta {
+            background-color: #FFF3EB;
+            color: #C05621;
+            padding: 20px;
+            border-radius: var(--raio-borda);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--cor-social);
+            font-weight: 500;
+        }
+
+        .grid-alertas {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-alertas {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card-alerta {
+            background: white;
+            border: 1px solid #FADCB3;
+            border-radius: var(--raio-borda);
+            padding: 20px;
+            border-top: 4px solid var(--cor-social);
+        }
+
+        .card-alerta h3 {
+            color: var(--cor-social);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .card-alerta ul {
+            list-style: none;
+        }
+
+        .card-alerta li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card-alerta li::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.8rem;
+        }
+
+        /* 
+         * =========================================
+         * RODAPÉ E BOTÕES
+         * =========================================
+         */
+        footer {
+            margin-top: 50px;
+            padding: 40px 20px;
+            background: #EAEAEA;
+            color: var(--cor-texto-claro);
+            font-size: 0.85rem;
+            border-radius: 12px 12px 0 0;
+        }
+
+        footer h3 {
+            color: var(--cor-texto);
+            margin-bottom: 15px;
+        }
+
+        footer ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        footer li {
+            margin-bottom: 8px;
+        }
+
+        .disclaimer-rodape {
+            font-style: italic;
+            border-top: 1px solid #CCC;
+            padding-top: 15px;
+        }
+
+        .btn-download-flutuante {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--cor-social);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin: 20px auto;
+            transition: transform 0.2s;
+        }
+        .btn-download-flutuante:hover {
+            transform: scale(1.05);
+            background-color: #B56045;
+        }
+    </style>
+</head>
+<body>
+    <table class="print-table">
+        <thead class="print-thead"><tr><td><div style="height: 15mm;"></div></td></tr></thead>
+        <tbody class="print-tbody"><tr class="print-tr"><td class="print-td">
+
+    <!-- TOPO / CABEÇALHO -->
+    <header class="topo">
+        <h1>Checklist de Marcos do Desenvolvimento</h1>
+        <p class="subtitulo">Do nascimento aos 12 anos — acompanhe os marcos socioemocionais, de linguagem, cognitivos e motores da criança.</p>
+        <div class="credibilidade">Base científica: CDC + American Academy of Pediatrics (marcos revisados em 2022), OMS, Bright Futures, Denver II e Piaget.</div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+            <img src="images/rita_profile.jpg" alt="Rita Oliveira" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--cor-branco); margin-bottom: 10px;">
+            <div style="font-size: 1.2rem; font-weight: 600; color: var(--cor-branco);">Rita Oliveira</div>
+            <div style="font-size: 1rem; color: rgba(255,255,255,0.8); margin-top: 2px; font-weight: 500;">@ritaoliveirapsicoinfantil</div>
+        </div>
+
+        <a href="checklist.pdf" download="Checklist_Marcos_Desenvolvimento.pdf" class="btn-download-flutuante">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Baixar PDF Completo
+        </a>
+    </header>
+
+    <div class="container">
+        
+        <!-- INFORMAÇÕES DA CRIANÇA E PROGRESSO -->
+        <!-- (Removidos campos de input da criança) -->
+
+        <!-- AVISO DE RESPONSABILIDADE -->
+        <div class="aviso">
+            <strong>Importante:</strong> Cada criança tem o seu ritmo. As idades indicam quando o marco geralmente já deveria estar presente — um pouco antes ou depois faz parte do normal. O que mais importa é a progressão contínua. Em caso de dúvida, ou se a criança perder uma habilidade já adquirida, converse com o pediatra e peça uma avaliação do desenvolvimento. Este material não substitui avaliação profissional.
+        </div>
+
+        <!-- LEGENDA DOS DOMÍNIOS -->
+        <div class="legenda-box">
+            <h3>Legenda dos Domínios</h3>
+            <div class="legenda-itens">
+                <div class="legenda-item"><span class="cor-bolinha" style="background-color: var(--cor-social);"></span> Social e emocional</div>
+                <div class="legenda-item"><span class="cor-bolinha" style="background-color: var(--cor-linguagem);"></span> Linguagem e comunicação</div>
+                <div class="legenda-item"><span class="cor-bolinha" style="background-color: var(--cor-cognitivo);"></span> Cognitivo (aprende e pensa)</div>
+                <div class="legenda-item"><span class="cor-bolinha" style="background-color: var(--cor-motor-grosso);"></span> Motor grosso (amplo)</div>
+                <div class="legenda-item"><span class="cor-bolinha" style="background-color: var(--cor-motor-fino);"></span> Motor fino</div>
+            </div>
+        </div>
+
+        <!-- 
+        =========================================
+        INÍCIO DAS ETAPAS DO CHECKLIST
+        O código abaixo contém as listas de marcos.
+        =========================================
+        -->
+        <main id="container-checklists">
+            <!-- As etapas serão renderizadas aqui pelo JavaScript -->
+        </main>
+
+        <!-- (Botão Limpar Removido) -->
+
+        <!-- SINAIS DE ALERTA -->
+        <section class="alertas-secao">
+            <h2>Sinais de Alerta — Quando atuar cedo</h2>
+            <div class="aviso-alerta">
+                Os itens abaixo não confirmam um problema, mas indicam que vale conversar com o pediatra e pedir uma avaliação do desenvolvimento. A perda de habilidades já adquiridas, em qualquer idade, merece atenção imediata.
+            </div>
+
+            <div class="grid-alertas">
+                <div class="card-alerta">
+                    <h3>Até 6 meses</h3>
+                    <ul>
+                        <li>Não reage a sons altos</li>
+                        <li>Não sorri para pessoas (sem sorriso social até 2–3 meses)</li>
+                        <li>Não leva objetos à boca nem segura brinquedos</li>
+                        <li>Não sustenta a cabeça com firmeza</li>
+                        <li>Não acompanha objetos ou rostos com o olhar</li>
+                    </ul>
+                </div>
+                <div class="card-alerta">
+                    <h3>9 a 12 meses</h3>
+                    <ul>
+                        <li>Não senta sem apoio (9 m) / não fica de pé com apoio (12 m)</li>
+                        <li>Não balbucia ("mama", "baba", "dada")</li>
+                        <li>Não responde ao próprio nome</li>
+                        <li>Não procura objetos que vê serem escondidos</li>
+                        <li>Não aponta nem acena "tchau"</li>
+                    </ul>
+                </div>
+                <div class="card-alerta">
+                    <h3>18 meses a 2 anos</h3>
+                    <ul>
+                        <li>Não anda sozinha até os 18 meses</li>
+                        <li>Não fala pelo menos 6 palavras (18 m) / não junta 2 palavras (2 anos)</li>
+                        <li>Não imita ações nem aponta para mostrar interesse</li>
+                        <li>Perde habilidades que já tinha (fala, gestos, contato visual)</li>
+                    </ul>
+                </div>
+                <div class="card-alerta">
+                    <h3>3 a 5 anos</h3>
+                    <ul>
+                        <li>Fala difícil de entender por pessoas de fora da família</li>
+                        <li>Não brinca de faz de conta nem com outras crianças</li>
+                        <li>Não segue instruções simples</li>
+                        <li>Cai com frequência ou tem grande dificuldade com escadas e pular</li>
+                        <li>Perda de habilidades já adquiridas</li>
+                    </ul>
+                </div>
+                <div class="card-alerta">
+                    <h3>6 a 12 anos</h3>
+                    <ul>
+                        <li>Dificuldade persistente de leitura, escrita ou matemática frente aos colegas</li>
+                        <li>Grande dificuldade de atenção, organização ou de seguir instruções</li>
+                        <li>Isolamento social acentuado ou dificuldade marcante em fazer amigos</li>
+                        <li>Regressão de habilidades, mudanças bruscas de humor ou de desempenho</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <h3>Referências Bibliográficas</h3>
+            <ul>
+                <li>Centers for Disease Control and Prevention (CDC) & American Academy of Pediatrics (AAP). <em>Learn the Signs. Act Early.</em> — Developmental Milestones (checklists revisados em 2022). cdc.gov/act-early/milestones.</li>
+                <li>Zubler JM, Wiggins LD, Macias MM, et al. <em>Evidence-Informed Milestones for Developmental Surveillance Tools.</em> Pediatrics. 2022;149(3):e2021052138.</li>
+                <li>WHO Multicentre Growth Reference Study Group. <em>WHO Motor Development Study: Windows of achievement for six gross motor development milestones.</em> Acta Paediatrica. 2006; Suppl 450:86–95.</li>
+                <li>Hagan JF, Shaw JS, Duncan PM (eds.). <em>Bright Futures: Guidelines for Health Supervision of Infants, Children, and Adolescents.</em> 4ª ed. AAP, 2017.</li>
+                <li>Frankenburg WK, Dodds J, et al. <em>Denver II — Denver Developmental Screening Test.</em> 1992.</li>
+                <li>Sheridan MD, Sharma A, Cockerill H. <em>From Birth to Five Years: Children's Developmental Progress.</em> 4ª ed. Routledge, 2014.</li>
+                <li>Piaget J. <em>Seis Estudos de Psicologia</em> (estágios do desenvolvimento cognitivo).</li>
+                <li>Sociedade Brasileira de Pediatria (SBP) e Caderneta de Saúde da Criança (Ministério da Saúde, Brasil).</li>
+            </ul>
+            <div class="disclaimer-rodape">
+                Este checklist tem finalidade educativa e de acompanhamento. Não substitui a avaliação de profissionais de saúde nem instrumentos de triagem padronizados e validados (como o Denver II ou o ASQ-3). A American Academy of Pediatrics recomenda triagem do desenvolvimento com instrumento validado aos 9, 18 e 30 meses, e triagem específica para autismo aos 18 e 24 meses, além de sempre que houver preocupação dos pais ou do profissional.
+            </div>
+        </footer>
+
+    </div>
+        </td></tr></tbody>
+        <tfoot class="print-tfoot"><tr><td><div style="height: 15mm;"></div></td></tr></tfoot>
+    </table>
+    <script>
+        // Dados brutos das etapas, exatamente como solicitado no prompt.
+        const dadosChecklist = [
+            {
+                id: 1, mesMax: 2, etapa: "01", idadeStr: "2 meses", consulta: "Consulta de puericultura: 2 meses",
+                dominios: {
+                    social: [
+                        "Acalma-se quando você a pega no colo ou fala com ela",
+                        "Olha para o seu rosto",
+                        "Parece feliz ao ver você se aproximar",
+                        "Sorri sozinha quando você fala ou sorri para ela (sorriso social)"
+                    ],
+                    linguagem: [
+                        "Reage a sons altos",
+                        "Faz sons além do choro (arrulhos, \"aah\", \"ooh\")"
+                    ],
+                    cognitivo: [
+                        "Acompanha um objeto com o olhar enquanto ele se move",
+                        "Olha para você por alguns segundos"
+                    ],
+                    motorGrosso: [
+                        "Mantém a cabeça erguida quando está de bruços",
+                        "Movimenta os dois braços e as duas pernas"
+                    ],
+                    motorFino: [
+                        "Abre as mãos por alguns momentos"
+                    ]
+                }
+            },
+            {
+                id: 2, mesMax: 4, etapa: "02", idadeStr: "4 meses", consulta: "Consulta de puericultura: 4 meses",
+                dominios: {
+                    social: [
+                        "Sorri sozinha para chamar a sua atenção",
+                        "Dá risada (gargalhada)",
+                        "Olha, move-se ou faz sons para chamar e manter a sua atenção"
+                    ],
+                    linguagem: [
+                        "Faz sons de balbucio (\"aah\", \"ooh\")",
+                        "Reage à sua voz fazendo sons de volta",
+                        "Vira a cabeça em direção ao som da sua voz"
+                    ],
+                    cognitivo: [
+                        "Se está com fome, abre a boca ao ver o peito ou a mamadeira",
+                        "Olha para as próprias mãos com interesse"
+                    ],
+                    motorGrosso: [
+                        "Sustenta a cabeça firme, sem apoio, quando você a segura",
+                        "Apoia-se nos antebraços/cotovelos quando está de bruços"
+                    ],
+                    motorFino: [
+                        "Segura um brinquedo quando você o coloca na mão",
+                        "Junta as mãos e as leva à boca",
+                        "Balança um brinquedo preso à mão"
+                    ]
+                }
+            },
+            {
+                id: 3, mesMax: 6, etapa: "03", idadeStr: "6 meses", consulta: "Consulta de puericultura: 6 meses",
+                dominios: {
+                    social: [
+                        "Reconhece pessoas familiares",
+                        "Gosta de se olhar no espelho",
+                        "Ri (sons de prazer e de desprazer)"
+                    ],
+                    linguagem: [
+                        "Reveza sons com você, como em uma \"conversa\"",
+                        "Faz sons de balbucio (\"baba\", \"dada\", \"mama\")"
+                    ],
+                    cognitivo: [
+                        "Leva objetos à boca para explorá-los",
+                        "Estende a mão para pegar um brinquedo que quer",
+                        "Fecha os lábios para mostrar que não quer mais comida"
+                    ],
+                    motorGrosso: [
+                        "Rola da barriga para as costas",
+                        "Empurra-se com os braços esticados quando de bruços",
+                        "Apoia-se nas mãos quando sentada"
+                    ],
+                    motorFino: [
+                        "Passa um objeto de uma mão para a outra",
+                        "Agarra objetos com a palma da mão inteira"
+                    ]
+                }
+            },
+            {
+                id: 4, mesMax: 9, etapa: "04", idadeStr: "9 meses", consulta: "Consulta de puericultura: 9 meses",
+                dominios: {
+                    social: [
+                        "Demonstra timidez ou medo de estranhos",
+                        "Mostra várias expressões faciais (alegria, tristeza, raiva, surpresa)",
+                        "Olha quando você chama o nome dela",
+                        "Reage quando você sai do ambiente (chora, faz cara)",
+                        "Sorri ou ri quando você brinca de esconde-esconde"
+                    ],
+                    linguagem: [
+                        "Faz sons diferentes, como \"mamamama\" e \"babababa\"",
+                        "Ergue os braços para ser pega no colo"
+                    ],
+                    cognitivo: [
+                        "Procura objetos que você esconde (permanência do objeto)",
+                        "Bate dois objetos um no outro"
+                    ],
+                    motorGrosso: [
+                        "Senta-se sem apoio",
+                        "Arrasta-se ou engatinha"
+                    ],
+                    motorFino: [
+                        "Leva comida à boca sozinha",
+                        "Transfere objetos com facilidade entre as mãos"
+                    ]
+                }
+            },
+            {
+                id: 5, mesMax: 12, etapa: "05", idadeStr: "1 ano (12 meses)", consulta: "Consulta de puericultura: 12 meses",
+                dominios: {
+                    social: [
+                        "Brinca com você de jogos como bater palmas ou esconde-esconde"
+                    ],
+                    linguagem: [
+                        "Acena \"tchau\"",
+                        "Chama os pais de \"mama\", \"papa\" ou outro nome especial",
+                        "Entende a palavra \"não\" (para e olha brevemente)"
+                    ],
+                    cognitivo: [
+                        "Coloca um objeto dentro de um recipiente, como um bloco numa caixa",
+                        "Procura objetos que viu serem escondidos"
+                    ],
+                    motorGrosso: [
+                        "Fica de pé segurando em móveis (anda apoiada nos móveis)",
+                        "Levanta-se sozinha até a posição de pé"
+                    ],
+                    motorFino: [
+                        "Pega objetos pequenos com o movimento de pinça (polegar e indicador)"
+                    ]
+                }
+            },
+            {
+                id: 6, mesMax: 15, etapa: "06", idadeStr: "15 meses", consulta: "Consulta de puericultura: 15 meses",
+                dominios: {
+                    social: [
+                        "Imita outras crianças enquanto brinca",
+                        "Mostra a você um objeto de que gosta",
+                        "Bate palmas quando fica animada",
+                        "Abraça bonecos ou brinquedos de pelúcia",
+                        "Demonstra afeto com abraços, carinhos ou beijos"
+                    ],
+                    linguagem: [
+                        "Tenta dizer uma ou duas palavras além de \"mama\" e \"papa\"",
+                        "Olha para um objeto familiar quando você o nomeia",
+                        "Segue instruções dadas com gesto e palavra ao mesmo tempo",
+                        "Aponta para pedir algo ou para chamar a sua atenção"
+                    ],
+                    cognitivo: [
+                        "Tenta usar objetos da maneira correta (telefone, copo, livro)",
+                        "Empilha pelo menos 2 objetos pequenos, como blocos"
+                    ],
+                    motorGrosso: [
+                        "Dá alguns passos sozinha",
+                        "Fica de pé sozinha, sem apoio"
+                    ],
+                    motorFino: [
+                        "Usa os dedos para se alimentar sozinha",
+                        "Coloca objetos pequenos dentro de um recipiente"
+                    ]
+                }
+            },
+            {
+                id: 7, mesMax: 18, etapa: "07", idadeStr: "18 meses", consulta: "Consulta de puericultura: 18 meses",
+                dominios: {
+                    social: [
+                        "Afasta-se de você, mas verifica para garantir que você está por perto",
+                        "Aponta para mostrar algo interessante",
+                        "Estende as mãos para serem lavadas",
+                        "Olha algumas páginas de um livro junto com você",
+                        "Ajuda a se vestir (estica o braço ou a perna)"
+                    ],
+                    linguagem: [
+                        "Tenta dizer três ou mais palavras além de \"mama\" e \"papa\"",
+                        "Segue instruções de um passo, sem gestos (\"dá para mim\")"
+                    ],
+                    cognitivo: [
+                        "Copia tarefas domésticas, como varrer com a vassoura",
+                        "Brinca com brinquedos de forma simples (empurra um carrinho)"
+                    ],
+                    motorGrosso: [
+                        "Anda sozinha, com firmeza",
+                        "Sobe e desce de móveis baixos, como o sofá"
+                    ],
+                    motorFino: [
+                        "Rabisca com lápis ou giz",
+                        "Come usando a colher"
+                    ]
+                }
+            },
+            {
+                id: 8, mesMax: 24, etapa: "08", idadeStr: "2 anos (24 meses)", consulta: "Consulta de puericultura: 2 anos",
+                dominios: {
+                    social: [
+                        "Percebe quando outras pessoas estão machucadas ou chateadas",
+                        "Olha para o seu rosto para ver como reagir a uma situação nova"
+                    ],
+                    linguagem: [
+                        "Aponta para figuras em um livro quando você pergunta",
+                        "Diz pelo menos duas palavras juntas (\"mais leite\")",
+                        "Aponta para pelo menos duas partes do corpo quando solicitada",
+                        "Usa gestos além de acenar (manda beijo, balança a cabeça para \"sim/não\")"
+                    ],
+                    cognitivo: [
+                        "Segura um objeto com uma mão enquanto usa a outra (segura o pote e tira a tampa)",
+                        "Tenta usar botões, interruptores e maçanetas",
+                        "Brinca com mais de um brinquedo ao mesmo tempo"
+                    ],
+                    motorGrosso: [
+                        "Chuta uma bola",
+                        "Corre",
+                        "Sobe e desce escadas segurando no apoio"
+                    ],
+                    motorFino: [
+                        "Come com a colher sem derramar muito",
+                        "Vira páginas de um livro, uma de cada vez (ou poucas)"
+                    ]
+                }
+            },
+            {
+                id: 9, mesMax: 30, etapa: "09", idadeStr: "2 anos e meio (30 meses)", consulta: "Consulta de puericultura: 30 meses",
+                dominios: {
+                    social: [
+                        "Brinca ao lado de outras crianças e, às vezes, junto com elas",
+                        "Mostra que sabe o que pode e o que não pode fazer (testa limites)",
+                        "Segue rotinas simples do dia a dia"
+                    ],
+                    linguagem: [
+                        "Fala cerca de 50 palavras",
+                        "Diz duas ou mais palavras juntas, com uma palavra de ação (\"o cachorro corre\")",
+                        "Nomeia objetos em um livro ao apontar para eles",
+                        "Usa palavras como \"eu\", \"mim\" e \"nós\""
+                    ],
+                    cognitivo: [
+                        "Usa objetos para brincar de faz de conta (dá comida a um boneco)",
+                        "Mostra habilidades simples para resolver problemas",
+                        "Segue instruções de duas etapas (\"pegue o sapato e me dê\")",
+                        "Sabe nomear pelo menos uma cor"
+                    ],
+                    motorGrosso: [
+                        "Pula com os dois pés saindo do chão",
+                        "Gira maçanetas para abrir portas"
+                    ],
+                    motorFino: [
+                        "Usa as mãos para girar coisas (folhas de livro, maçanetas)",
+                        "Tira algumas peças de roupa sozinha"
+                    ]
+                }
+            },
+            {
+                id: 10, mesMax: 36, etapa: "10", idadeStr: "3 anos", consulta: "Consulta de puericultura: 3 anos",
+                dominios: {
+                    social: [
+                        "Acalma-se em até 10 minutos depois que você sai (na creche ou escola)",
+                        "Percebe outras crianças e se junta a elas para brincar"
+                    ],
+                    linguagem: [
+                        "Conversa com você em pelo menos duas trocas (pergunta e resposta)",
+                        "Pergunta \"quem\", \"o quê\", \"onde\" ou \"por quê\"",
+                        "Diz o que está acontecendo em uma figura quando questionada",
+                        "Diz o próprio primeiro nome quando perguntado",
+                        "Fala de forma compreensível na maior parte do tempo"
+                    ],
+                    cognitivo: [
+                        "Desenha um círculo ao copiar um modelo",
+                        "Evita tocar em coisas quentes ou perigosas quando avisada"
+                    ],
+                    motorGrosso: [
+                        "Sobe escadas alternando os pés (um pé por degrau)"
+                    ],
+                    motorFino: [
+                        "Veste algumas peças de roupa sozinha (casaco frouxo, calça)",
+                        "Usa um garfo"
+                    ]
+                }
+            },
+            {
+                id: 11, mesMax: 48, etapa: "11", idadeStr: "4 anos", consulta: "Consulta de puericultura: 4 anos",
+                dominios: {
+                    social: [
+                        "Finge ser outra coisa ao brincar (animal, super-herói, professor)",
+                        "Pede para brincar com outras crianças quando não há nenhuma por perto",
+                        "Conforta os outros quando estão machucados ou tristes",
+                        "Evita o perigo (não pula de lugares altos)",
+                        "Gosta de ser \"ajudante\"",
+                        "Muda o comportamento conforme o local (igreja, parque, biblioteca)"
+                    ],
+                    linguagem: [
+                        "Diz frases com quatro ou mais palavras",
+                        "Repete palavras de uma música ou história que conhece",
+                        "Conta sobre algo que aconteceu, com pelo menos dois acontecimentos",
+                        "Responde a perguntas simples (\"o que é um casaco?\")"
+                    ],
+                    cognitivo: [
+                        "Nomeia algumas cores",
+                        "Conta objetos em sequência, dizendo os números na ordem",
+                        "Entende a ideia de \"igual\" e \"diferente\"",
+                        "Usa tesoura (sob supervisão)"
+                    ],
+                    motorGrosso: [
+                        "Pula em um pé só (saltita)",
+                        "Pega e arremessa uma bola com direção"
+                    ],
+                    motorFino: [
+                        "Segura o lápis entre os dedos, não com o punho fechado",
+                        "Desenha uma pessoa com 3 ou mais partes do corpo"
+                    ]
+                }
+            },
+            {
+                id: 12, mesMax: 60, etapa: "12", idadeStr: "5 anos", consulta: "Consulta de puericultura: 5 anos",
+                dominios: {
+                    social: [
+                        "Segue regras ou se reveza ao brincar de jogos com outras crianças",
+                        "Canta, dança ou representa para você",
+                        "Realiza tarefas simples em casa (guarda brinquedos)"
+                    ],
+                    linguagem: [
+                        "Conta uma história que ouviu ou inventou, com pelo menos dois acontecimentos",
+                        "Responde a perguntas simples sobre um livro ou história",
+                        "Mantém uma conversa com mais de três trocas",
+                        "Usa o tempo verbal e o plural de forma razoavelmente correta",
+                        "Diz o nome e o sobrenome completos"
+                    ],
+                    cognitivo: [
+                        "Conta até 10",
+                        "Reconhece e nomeia alguns números e letras",
+                        "Presta atenção por 5 a 10 minutos em uma atividade",
+                        "Escreve algumas letras do próprio nome",
+                        "Usa palavras sobre tempo (ontem, hoje, amanhã)"
+                    ],
+                    motorGrosso: [
+                        "Equilibra-se em um pé só por vários segundos",
+                        "Pula corda, saltita e pula obstáculos baixos"
+                    ],
+                    motorFino: [
+                        "Segura o lápis de forma madura (preensão em pinça)",
+                        "Usa tesoura recortando sobre uma linha",
+                        "Abotoa alguns botões"
+                    ]
+                }
+            },
+            {
+                id: 13, mesMax: 84, etapa: "13", idadeStr: "6 a 7 anos", consulta: "Início da fase escolar — ensino fundamental",
+                dominios: {
+                    social: [
+                        "Quer agradar e ser parecida com os amigos",
+                        "Demonstra mais empatia e começa a entender justiça e regras",
+                        "Torna-se mais independente da família",
+                        "Lida melhor com a frustração, mas ainda pode ter medos"
+                    ],
+                    linguagem: [
+                        "Conta histórias completas, com começo, meio e fim",
+                        "Entende piadas e adivinhações simples",
+                        "Vocabulário em rápida expansão; segue conversas longas"
+                    ],
+                    cognitivo: [
+                        "Começa a ler e a escrever palavras e frases curtas",
+                        "Faz somas e subtrações simples",
+                        "Compreende a noção de tempo (dias da semana, horas)",
+                        "Pensa de forma mais lógica sobre fatos concretos",
+                        "Mantém a atenção por 15 a 30 minutos"
+                    ],
+                    motorGrosso: [
+                        "Anda de bicicleta sem rodinhas",
+                        "Pula corda; corre, chuta e arremessa com mais coordenação"
+                    ],
+                    motorFino: [
+                        "Escreve letras e números de forma legível",
+                        "Amarra os cadarços",
+                        "Desenha figuras com mais detalhes (casa, pessoa com roupas)"
+                    ]
+                }
+            },
+            {
+                id: 14, mesMax: 120, etapa: "14", idadeStr: "8 a 10 anos", consulta: "Fase escolar — meninice intermediária",
+                dominios: {
+                    social: [
+                        "Forma amizades importantes, em geral com colegas do mesmo sexo",
+                        "Trabalha em grupo e entende o ponto de vista do outro",
+                        "Autoestima ligada ao senso de competência (escola, esportes)",
+                        "Busca aprovação dos colegas e maior autonomia"
+                    ],
+                    linguagem: [
+                        "Lê para aprender, não só para decodificar",
+                        "Escreve textos com começo, meio e fim e ideias organizadas",
+                        "Argumenta, explica e debate com clareza"
+                    ],
+                    cognitivo: [
+                        "Raciocina com lógica sobre situações concretas e causa-efeito",
+                        "Compreende dinheiro, regras complexas e múltiplas etapas",
+                        "Planeja e organiza tarefas e materiais escolares",
+                        "Mantém atenção sustentada por períodos mais longos"
+                    ],
+                    motorGrosso: [
+                        "Refina habilidades esportivas (driblar, nadar, pedalar com destreza)",
+                        "Maior força, resistência e coordenação corporal"
+                    ],
+                    motorFino: [
+                        "Escrita fluente (inclusive cursiva)",
+                        "Usa ferramentas e instrumentos com precisão (régua, tesoura, instrumentos musicais)"
+                    ]
+                }
+            },
+            {
+                id: 15, mesMax: 144, etapa: "15", idadeStr: "11 a 12 anos", consulta: "Pré-adolescência — puberdade inicial",
+                dominios: {
+                    social: [
+                        "Busca mais independência da família; a influência dos colegas cresce",
+                        "Começa a formar a própria identidade e valores",
+                        "Pode questionar regras e autoridade",
+                        "Vivencia oscilações de humor ligadas ao início da puberdade"
+                    ],
+                    linguagem: [
+                        "Comunica ideias abstratas e opiniões fundamentadas",
+                        "Compreende linguagem figurada, ironia e duplo sentido",
+                        "Escreve textos mais longos e estruturados"
+                    ],
+                    cognitivo: [
+                        "Inicia o pensamento abstrato e hipotético (\"e se…?\")",
+                        "Pensa sobre o futuro e consequências de longo prazo",
+                        "Compreende conceitos abstratos (justiça, moral, política)",
+                        "Resolve problemas com várias etapas e variáveis"
+                    ],
+                    motorGrosso: [
+                        "Habilidades motoras próximas às de um adulto",
+                        "Estirão de crescimento pode afetar temporariamente a coordenação"
+                    ],
+                    motorFino: [
+                        "Coordenação motora fina madura para escrever, desenhar e digitar",
+                        "Executa tarefas manuais detalhadas e precisas"
+                    ]
+                }
+            }
+        ];
+
+        // Mapeamento de informações dos domínios (título e cor CSS var)
+        const configDominios = {
+            social: { titulo: "Social e emocional", corVar: "var(--cor-social)" },
+            linguagem: { titulo: "Linguagem e comunicação", corVar: "var(--cor-linguagem)" },
+            cognitivo: { titulo: "Cognitivo (aprende e pensa)", corVar: "var(--cor-cognitivo)" },
+            motorGrosso: { titulo: "Motor grosso (amplo)", corVar: "var(--cor-motor-grosso)" },
+            motorFino: { titulo: "Motor fino", corVar: "var(--cor-motor-fino)" }
+        };
+
+        let totalCheckboxes = 0;
+        let checadosAtualmente = 0;
+
+        // Renderiza o HTML das etapas dinamicamente
+        function renderizarChecklist() {
+            const container = document.getElementById('container-checklists');
+            container.innerHTML = '';
+            totalCheckboxes = 0;
+
+            dadosChecklist.forEach((etapa) => {
+                // Montar HTML do Card
+                const card = document.createElement('div');
+                card.className = 'card-etapa';
+                card.id = `card-etapa-${etapa.id}`;
+                card.dataset.meses = etapa.mesMax;
+
+                // Contar total de itens na etapa
+                let totalItensEtapa = 0;
+                Object.values(etapa.dominios).forEach(arr => { if(arr) totalItensEtapa += arr.length; });
+                totalCheckboxes += totalItensEtapa;
+
+                // Cabeçalho do Card
+                let htmlCabecalho = `
+                    <div class="cabecalho-etapa">
+                        <div class="numero-etapa">${etapa.etapa}</div>
+                        <div class="titulo-etapa-text">
+                            <h2>${etapa.idadeStr}</h2>
+                            <p>${etapa.consulta}</p>
+                        </div>
+                        <div class="progresso-etapa-mini" id="progresso-etapa-${etapa.id}">0/${totalItensEtapa} marcos</div>
+                    </div>
+                    <div class="grid-dominios">
+                `;
+
+                // Conteúdo dos domínios (na ordem exigida)
+                const ordem = ['social', 'linguagem', 'cognitivo', 'motorGrosso', 'motorFino'];
+                let htmlDominios = '';
+
+                ordem.forEach(key => {
+                    const itens = etapa.dominios[key];
+                    if (itens && itens.length > 0) {
+                        const config = configDominios[key];
+                        htmlDominios += `
+                            <div class="dominio-secao" style="border-left-color: ${config.corVar};">
+                                <div class="dominio-titulo" style="color: ${config.corVar};">${config.titulo}</div>
+                        `;
+                        
+                        itens.forEach((textoItem, index) => {
+                            // ID único pro input salvar no localStorage
+                            const inputId = `chk_e${etapa.id}_${key}_${index}`;
+                            htmlDominios += `
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="${inputId}" class="chk-marco" data-etapa-id="${etapa.id}">
+                                    <label for="${inputId}">${textoItem}</label>
+                                </div>
+                            `;
+                        });
+                        htmlDominios += `</div>`; // fecha dominio-secao
+                    }
+                });
+
+                card.innerHTML = htmlCabecalho + htmlDominios + `</div>`; // fecha grid-dominios
+                container.appendChild(card);
+            });
+        }
+
+        function configurarEventosProgresso() {
+            const checkboxes = document.querySelectorAll('.chk-marco');
+
+            // Apenas carregar do localStorage para caso o usuário feche sem querer antes de imprimir
+            checkboxes.forEach(chk => {
+                const salvo = localStorage.getItem(chk.id);
+                if (salvo === 'true') {
+                    chk.checked = true;
+                }
+
+                // Evento de clique para salvar
+                chk.addEventListener('change', () => {
+                    localStorage.setItem(chk.id, chk.checked);
+                });
+            });
+        }
+
+        // INICIALIZAÇÃO
+        window.addEventListener('DOMContentLoaded', () => {
+            renderizarChecklist();
+            configurarEventosProgresso();
+        });
+
+    </script>
+</body>
+</html>

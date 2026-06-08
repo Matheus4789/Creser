@@ -59,6 +59,7 @@ const tabPanes = document.querySelectorAll('.tab-pane');
 
 // Initialize Timeline
 function initTimeline() {
+    if (!timelineTrack) return;
     marcosData.forEach((marco, index) => {
         const item = document.createElement('div');
         item.className = `timeline-item ${index === 0 ? 'active' : ''}`;
@@ -147,9 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initTimeline();
     initTabs();
     initAnimations();
-    initChecklist();
-    initMoodTracker();
-    initBreathingWidget();
+    if (typeof initChecklist === 'function') initChecklist();
+    if (typeof initMoodTracker === 'function') initMoodTracker();
+    if (typeof initBreathingWidget === 'function') initBreathingWidget();
     
     // Set initial visible state for elements already in viewport
     setTimeout(() => {

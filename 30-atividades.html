@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 Atividades Práticas | Ajude-me a creSer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="global-nav.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .download-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
+            padding: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-top: 4px solid var(--color-eucalyptus);
+        }
+        .download-icon {
+            width: 80px;
+            height: 80px;
+            color: var(--color-eucalyptus);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="atividades-page">
+
+    <nav class="global-nav">
+        <a href="index.html" class="nav-logo">Ajude-me a creSer</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="atividades.html" class="active">Ferramentas</a></li>
+        </ul>
+    </nav>
+
+    <div class="container content-section">
+        <a href="atividades.html" class="btn-text back-link"><i data-feather="arrow-left"></i> Voltar</a>
+        
+        <div class="download-card fade-in-up">
+            <i data-feather="play" class="download-icon"></i>
+            <h1 class="section-title" style="font-size: 2rem; margin-bottom: 1rem;">30 Atividades Práticas</h1>
+            <p style="margin-bottom: 2rem;">Brincadeiras que usam o que você já tem em casa para estimular a neuroplasticidade. Baixe o E-book com a lista completa e instruções detalhadas.</p>
+            
+            <!-- Link para o entregável (PDF/E-book) -->
+            <a href="ebook-30-atividades.pdf" class="btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 300px; margin: 0 auto;" target="_blank">
+                <i data-feather="download"></i> Baixar E-book (PDF)
+            </a>
+        </div>
+
+        <!-- Visualizador do PDF embutido nativamente com PDF.js, ocupando 100% -->
+        <div id="pdf-viewer" class="fade-in-up" style="width: 100%; max-width: 1200px; margin: 2rem auto 0; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <p id="pdf-loading" style="text-align: center; padding: 2rem;">Carregando PDF...</p>
+        </div>
+    </div>
+
+    <!-- Importando PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+        feather.replace();
+
+        // Configurando o worker do PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+        const url = 'ebook-30-atividades.pdf';
+        const pdfViewer = document.getElementById('pdf-viewer');
+        const loadingMsg = document.getElementById('pdf-loading');
+
+        // Carregar o PDF
+        pdfjsLib.getDocument(url).promise.then(pdf => {
+            loadingMsg.style.display = 'none';
+            
+            // Renderizar todas as páginas
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                pdf.getPage(pageNum).then(page => {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale: scale });
+
+                    // Criar um canvas para cada página
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    canvas.style.maxWidth = '100%';
+                    canvas.style.height = 'auto';
+                    canvas.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                    canvas.style.borderRadius = '4px';
+
+                    pdfViewer.appendChild(canvas);
+
+                    // Renderizar a página no canvas
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            }
+        }).catch(error => {
+            console.error('Erro ao carregar o PDF:', error);
+            loadingMsg.textContent = 'Erro ao carregar o PDF. Por favor, use o botão acima para baixar.';
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

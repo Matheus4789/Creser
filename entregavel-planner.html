@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Mensal de Estimulação | Ajude-me a creSer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        :root {
+            /* Paleta Base do Site */
+            --cor-social: #D27D60; /* Terracotta */
+            --cor-linguagem: #8A9A88; /* Eucalyptus Escuro */
+            --cor-cognitivo: #E8A365; /* Mustard suave */
+            --cor-motor-grosso: #6A8A9E; /* Azul suave */
+            --cor-motor-fino: #B58B96; /* Rosa velho / Mauve */
+            
+            --cor-fundo: #FAF8F5; /* Cream */
+            --cor-texto: #333333;
+            --cor-texto-claro: #5A544D;
+            --cor-borda: #E8DCCB;
+            --cor-branco: #FFFFFF;
+            
+            /* Gradiente do cabeçalho */
+            --gradiente-topo: linear-gradient(135deg, #A8B5A6, #8A9A88);
+            
+            --raio-borda: 12px;
+            --sombra: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.5;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+
+        /* =========================================
+           CONTROLES DE TELA VS IMPRESSÃO
+           ========================================= */
+        
+        /* Ocultar elementos exclusivos de tela na impressão */
+        @media print {
+            .screen-only { display: none !important; }
+            .print-only { display: block !important; }
+            
+            body { 
+                background-color: var(--cor-fundo) !important; 
+                margin: 0;
+            }
+            .print-table { display: table; width: 100%; border-collapse: collapse; }
+            .print-thead { display: table-header-group; }
+            .print-tfoot { display: table-footer-group; }
+            .print-tbody { display: table-row-group; }
+            .print-tr { display: table-row; }
+            .print-td { display: table-cell; padding: 0; }
+            .print-thead div, .print-tfoot div { height: 10mm; }
+
+            .container { padding: 0 10mm !important; max-width: 100%; }
+            
+            /* Ajustes para caber numa folha A4 paisagem */
+            .planner-grid { gap: 4px !important; }
+            .dia-box { min-height: 70px !important; }
+            .editable-box { font-size: 10px !important; }
+            .topo { padding: 15px 10px !important; }
+            .topo h1 { font-size: 1.5rem !important; }
+            .secoes-extras { margin-top: 10px !important; gap: 10px !important; }
+        }
+
+        /* Ocultar elementos exclusivos de impressão na tela */
+        @media screen {
+            .print-only { display: none !important; }
+            
+            .preview-card {
+                background: white;
+                border-radius: 16px;
+                box-shadow: var(--shadow-soft, 0 4px 15px rgba(0,0,0,0.05));
+                padding: 3rem;
+                text-align: center;
+                max-width: 600px;
+                margin: 2rem auto;
+                border-top: 4px solid var(--cor-social);
+            }
+            
+            .preview-icon {
+                width: 80px;
+                height: 80px;
+                color: var(--cor-social);
+                margin-bottom: 1.5rem;
+            }
+            
+            .btn-large {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                background-color: var(--cor-social);
+                color: white;
+                text-decoration: none;
+                padding: 15px 30px;
+                border-radius: 30px;
+                font-weight: bold;
+                font-size: 1.1rem;
+                transition: transform 0.2s;
+                margin-top: 20px;
+            }
+            .btn-large:hover {
+                transform: scale(1.05);
+                background-color: #B56045;
+            }
+        }
+
+        /* ELEMENTOS EDITÁVEIS */
+        .editable-box {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px dashed rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 8px;
+            min-height: 30px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        
+        .editable-box:focus {
+            background: var(--cor-branco);
+            border-color: var(--cor-social);
+            border-style: solid;
+        }
+
+        .editable-box[data-placeholder]:empty:before {
+            content: attr(data-placeholder);
+            color: #999;
+            pointer-events: none;
+            display: block; /* For Firefox */
+        }
+
+        /* HEADER INFOS (Mês, Foco, Nome) */
+        .header-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            background: var(--cor-branco);
+            padding: 15px;
+            border-radius: var(--raio-borda);
+            box-shadow: var(--sombra);
+            border-left: 4px solid var(--cor-cognitivo);
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--cor-texto-claro);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group .editable-box {
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-bottom: 1px dashed #CCC;
+            border-radius: 0;
+            padding: 5px 0;
+            background: transparent;
+        }
+
+        /* CALENDÁRIO MENSAL */
+        .planner-container {
+            background: var(--cor-branco);
+            border-radius: var(--raio-borda);
+            box-shadow: var(--sombra);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dias-semana {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .dia-header {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px 5px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* Cores vibrantes para os dias da semana */
+        .bg-seg { background-color: #D27D60; }
+        .bg-ter { background-color: #E8A365; }
+        .bg-qua { background-color: #8A9A88; }
+        .bg-qui { background-color: #6A8A9E; }
+        .bg-sex { background-color: #B58B96; }
+        .bg-sab { background-color: #A8B5A6; }
+        .bg-dom { background-color: #D2A89E; }
+
+        .planner-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .dia-box {
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            background: #FAFAFA;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        
+        .dia-box:focus-within {
+            border-color: var(--cor-social);
+        }
+
+        .dia-numero {
+            padding: 5px;
+            background: rgba(0,0,0,0.03);
+            text-align: right;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+        
+        .dia-numero .editable-box {
+            display: inline-block;
+            min-width: 25px;
+            min-height: 20px;
+            padding: 2px 5px;
+            text-align: center;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            color: var(--cor-texto-claro);
+        }
+
+        .dia-conteudo {
+            flex: 1;
+            padding: 5px;
+        }
+
+        .dia-conteudo .editable-box {
+            height: 100%;
+            border: none;
+            background: transparent;
+            font-size: 0.85rem;
+        }
+
+        /* SEÇÕES EXTRAS */
+        .secoes-extras {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .secao-extra {
+            background: var(--cor-branco);
+            border-radius: var(--raio-borda);
+            box-shadow: var(--sombra);
+            padding: 20px;
+        }
+
+        .secao-extra h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .secao-extra.conquistas { border-top: 4px solid var(--cor-motor-fino); }
+        .secao-extra.conquistas h3 { color: var(--cor-motor-fino); }
+        
+        .secao-extra.materiais { border-top: 4px solid var(--cor-motor-grosso); }
+        .secao-extra.materiais h3 { color: var(--cor-motor-grosso); }
+        
+        .secao-extra.observacoes { border-top: 4px solid var(--cor-social); }
+        .secao-extra.observacoes h3 { color: var(--cor-social); }
+
+        .secao-extra .editable-box {
+            min-height: 80px;
+            background: #FAFAFA;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .topo { flex-direction: column; gap: 20px; text-align: center; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- =========================================
+         VISUALIZAÇÃO DE TELA (MOBILE/DESKTOP)
+         ========================================= -->
+    <div class="container screen-only">
+        <a href="atividades.html" class="back-link"><i data-feather="arrow-left"></i> Voltar para Ferramentas</a>
+        
+        <div class="preview-card">
+            <i data-feather="calendar" class="preview-icon"></i>
+            <h1 style="font-size: 2.2rem; margin-bottom: 1rem; font-family: 'Playfair Display', serif;">Planner Mensal de Estimulação</h1>
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem; color: #666;">
+                O Planner Mensal é uma ferramenta visual focada em organização. Como calendários ficam confusos na telinha do celular, nós preparamos um formato <strong>horizontal lindo e colorido</strong> feito especialmente para impressão!
+            </p>
+            <p style="color: #888; font-size: 0.95rem;">
+                Baixe o PDF abaixo, imprima (preferencialmente colorido) e cole na geladeira ou no quarto da criança para anotar atividades e conquistas diárias.
+            </p>
+            
+            <a href="planner.pdf" download="Planner_Mensal_Estimulacao.pdf" class="btn-large">
+                <i data-feather="download"></i> Baixar Planner em PDF
+            </a>
+        </div>
+    </div>
+
+    <!-- =========================================
+         CONTEÚDO REAL (EXCLUSIVO PARA IMPRESSÃO)
+         ========================================= -->
+    <table class="print-table print-only">
+        <thead class="print-thead"><tr><td><div style="height: 10mm;"></div></td></tr></thead>
+        <tbody class="print-tbody"><tr class="print-tr"><td class="print-td">
+
+    <div class="container">
+
+        <!-- TOPO (SÓ IMPRESSÃO) -->
+        <header class="topo">
+            <div class="topo-info">
+                <h1>Planner Mensal de Estimulação</h1>
+                <p>Organize brincadeiras, metas e acompanhe o desenvolvimento.</p>
+            </div>
+        </header>
+
+        <!-- HEADER INPUTS -->
+        <div class="header-inputs">
+            <div class="input-group" style="border-color: var(--cor-linguagem);">
+                <label><i data-feather="calendar" style="width: 14px; display: inline-block;"></i> Mês / Ano</label>
+                <div class="editable-box" contenteditable="true" id="planner-mes" data-placeholder="Ex: Outubro / 2026"></div>
+            </div>
+            <div class="input-group" style="border-color: var(--cor-social);">
+                <label><i data-feather="user" style="width: 14px; display: inline-block;"></i> Nome da Criança</label>
+                <div class="editable-box" contenteditable="true" id="planner-nome" data-placeholder="Nome..."></div>
+            </div>
+            <div class="input-group" style="border-color: var(--cor-cognitivo);">
+                <label><i data-feather="target" style="width: 14px; display: inline-block;"></i> Foco Principal do Mês</label>
+                <div class="editable-box" contenteditable="true" id="planner-foco" data-placeholder="Ex: Melhorar a pega em pinça"></div>
+            </div>
+        </div>
+
+        <!-- GRID DO CALENDÁRIO -->
+        <div class="planner-container">
+            <div class="dias-semana">
+                <div class="dia-header bg-seg">Segunda</div>
+                <div class="dia-header bg-ter">Terça</div>
+                <div class="dia-header bg-qua">Quarta</div>
+                <div class="dia-header bg-qui">Quinta</div>
+                <div class="dia-header bg-sex">Sexta</div>
+                <div class="dia-header bg-sab">Sábado</div>
+                <div class="dia-header bg-dom">Domingo</div>
+            </div>
+
+            <div class="planner-grid" id="grid-calendario">
+                <!-- Gerado por JS (35 dias = 5 semanas) -->
+            </div>
+        </div>
+
+        <!-- SEÇÕES EXTRAS -->
+        <div class="secoes-extras">
+            <div class="secao-extra conquistas">
+                <h3><i data-feather="award"></i> Novas Conquistas</h3>
+                <div class="editable-box" contenteditable="true" id="planner-conquistas" data-placeholder="O que de novo a criança fez este mês?"></div>
+            </div>
+            <div class="secao-extra materiais">
+                <h3><i data-feather="shopping-bag"></i> Materiais / Ideias</h3>
+                <div class="editable-box" contenteditable="true" id="planner-materiais" data-placeholder="Caixas de papelão, tinta guache, panelas..."></div>
+            </div>
+            <div class="secao-extra observacoes">
+                <h3><i data-feather="edit-3"></i> Observações</h3>
+                <div class="editable-box" contenteditable="true" id="planner-obs" data-placeholder="Como foi o humor, sono, ou algo a relatar ao pediatra?"></div>
+            </div>
+        </div>
+
+    </div>
+
+        </td></tr></tbody>
+        <tfoot class="print-tfoot"><tr><td><div style="height: 10mm;"></div></td></tr></tfoot>
+    </table>
+
+    <script>
+        feather.replace();
+
+        // Gerar os 35 quadradinhos do mês
+        const grid = document.getElementById('grid-calendario');
+        const diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+        
+        let htmlDias = '';
+        for (let i = 0; i < 35; i++) {
+            const diaSemana = diasSemana[i % 7];
+            htmlDias += `
+                <div class="dia-box">
+                    <div class="dia-numero" data-dia="${diaSemana}">
+                        <div class="editable-box" contenteditable="true" id="planner-dianum-${i}" data-placeholder=""></div>
+                    </div>
+                    <div class="dia-conteudo">
+                        <div class="editable-box" contenteditable="true" id="planner-diatexto-${i}" data-placeholder="Atividades..."></div>
+                    </div>
+                </div>
+            `;
+        }
+        grid.innerHTML = htmlDias;
+
+        // Sistema de LocalStorage para salvar textos digitados
+        document.addEventListener('DOMContentLoaded', () => {
+            const editables = document.querySelectorAll('.editable-box[contenteditable="true"]');
+            
+            // Carregar dados salvos
+            editables.forEach(box => {
+                const saved = localStorage.getItem(box.id);
+                if (saved) {
+                    box.innerHTML = saved;
+                }
+
+                // Salvar sempre que o usuário digitar ou sair do campo
+                box.addEventListener('input', () => {
+                    localStorage.setItem(box.id, box.innerHTML);
+                });
+                box.addEventListener('blur', () => {
+                    localStorage.setItem(box.id, box.innerHTML);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

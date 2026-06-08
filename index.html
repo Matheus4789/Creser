@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Diário do Desenvolvimento - Primeiros 30 Dias. Ajude-me a creSer - Acompanhe cada marco, registre cada conquista.">
-    <title>Ajude-me a creSer | Primeiros 30 Dias</title>
+    <meta name="description" content="Ajude-me a creSer - Mapa do Desenvolvimento Infantil do Recém-Nascido aos 3 Anos.">
+    <title>Ajude-me a creSer | Início</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,11 +12,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="global-nav.css">
     
-    <!-- Feather Icons for minimalist SVG icons -->
+    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
+
+    <!-- Global Navigation -->
+    <nav class="global-nav fade-in-up">
+        <a href="index.html" class="nav-logo">Ajude-me a creSer</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="atividades.html">Ferramentas</a></li>
+        </ul>
+    </nav>
 
     <!-- HERO SECTION -->
     <header class="hero" id="home">
@@ -24,13 +34,14 @@
         <div class="hero-content fade-in-up">
             <h2 class="pre-title">Ajude-me a</h2>
             <h1 class="main-title">creSer</h1>
-            <p class="subtitle">Acompanhe cada marco. Registre cada conquista. Estimule com afeto e intenção.</p>
-            <a href="#marcos" class="btn-primary">Explorar o 1º Mês</a>
+            <p class="subtitle">Mapa do Desenvolvimento Infantil do Recém-Nascido aos 3 Anos</p>
+            <p style="margin-bottom: 2rem;">Desenvolvido com base nas principais evidências da neurociência sobre o desenvolvimento cerebral nos primeiros 3 anos de vida — período de maior neuroplasticidade da existência humana.</p>
+            <a href="#fases" class="btn-primary">Explorar as Fases</a>
             <div class="hero-author-card">
                 <img src="images/rita_profile.jpg" alt="Rita Oliveira" class="author-photo">
                 <div class="author-info">
                     <p class="author-name">Rita Oliveira</p>
-                    <span class="author-title">Psicóloga e Neuropsicóloga</span>
+                    <span class="author-title">Psicóloga Especialista em Intervenção Precoce, Neuropsicóloga e Mãe</span>
                     <a href="https://instagram.com/ritaoliveirapsicoinfantil" target="_blank" class="author-social">
                         <i data-feather="instagram"></i> @ritaoliveirapsicoinfantil
                     </a>
@@ -42,180 +53,132 @@
         </div>
     </header>
 
-    <!-- DID YOU KNOW HIGHLIGHT -->
-    <section class="highlight-section container fade-in-up">
-        <div class="glass-card text-center highlight-card">
-            <span class="tag">Você sabia?</span>
-            <h3>O cérebro do seu bebê forma 1 milhão de conexões por segundo.</h3>
-            <p>Cada toque, cada olhar e cada palavra está moldando a arquitetura cerebral do seu recém-nascido.</p>
-        </div>
-    </section>
-
-    <!-- MARCOS TIMELINE -->
-    <section id="marcos" class="timeline-section container">
-        <div class="section-header fade-in-up">
-            <h2 class="section-title">O Que Esperar</h2>
-            <p>Os principais marcos e desenvolvimentos do primeiro mês.</p>
+    <!-- FASES DO DESENVOLVIMENTO (MONTHS GRID) -->
+    <section id="fases" class="container content-section fade-in-up">
+        <div class="section-header">
+            <h2 class="section-title">Fases do Desenvolvimento</h2>
+            <p>Selecione uma fase para descobrir o que esperar, sinais de alerta e atividades simples usando recursos de casa.</p>
         </div>
         
-        <div class="timeline-container fade-in-up">
-            <!-- Timeline items will be injected by JS -->
-            <div class="timeline-track" id="timeline-track"></div>
-            <div class="timeline-content-display glass-card" id="timeline-display">
-                <h3 id="td-title">Selecione um marco</h3>
-                <p id="td-desc">Explore a linha do tempo acima para descobrir como o cérebro e o corpo do seu bebê se desenvolvem nos primeiros 30 dias.</p>
-            </div>
+        <div class="month-grid">
+            <a href="meses-0-3.html" class="month-card">
+                <h3>0 a 3 Meses</h3>
+                <p>Despertar Sensorial e Vínculo</p>
+            </a>
+            <a href="meses-3-6.html" class="month-card">
+                <h3>3 a 6 Meses</h3>
+                <p>Exploração e Controle Motor</p>
+            </a>
+            <a href="meses-6-9.html" class="month-card">
+                <h3>6 a 9 Meses</h3>
+                <p>Curiosidade e Mobilidade</p>
+            </a>
+            <a href="meses-9-12.html" class="month-card">
+                <h3>9 a 12 Meses</h3>
+                <p>Primeiros Passos e Palavras</p>
+            </a>
+            <a href="meses-12-18.html" class="month-card">
+                <h3>12 a 18 Meses</h3>
+                <p>Autonomia e Linguagem</p>
+            </a>
+            <a href="meses-18-24.html" class="month-card">
+                <h3>18 a 24 Meses</h3>
+                <p>Linguagem Expressiva e Jogo Simbólico</p>
+            </a>
+            <a href="meses-24-36.html" class="month-card">
+                <h3>24 a 36 Meses</h3>
+                <p>Imaginação e Socialização</p>
+            </a>
         </div>
     </section>
 
-    <!-- ESTIMULAÇÃO (TABS) -->
-    <section id="estimulacao" class="stimulation-section">
+    <!-- MAPA COMPARATIVO -->
+    <section id="mapa-comparativo" class="stimulation-section">
         <div class="container">
             <div class="section-header fade-in-up">
-                <h2 class="section-title">Como Estimular</h2>
-                <p>O cérebro forma milhões de conexões. Experiências sensoriais positivas são cruciais.</p>
+                <h2 class="section-title">Mapa Comparativo</h2>
+                <p>Um resumo da evolução do seu bebê.</p>
             </div>
-
-            <div class="tabs-container fade-in-up">
-                <div class="tabs-nav" id="tabs-nav">
-                    <button class="tab-btn active" data-target="tab-visual">Visual</button>
-                    <button class="tab-btn" data-target="tab-auditiva">Auditiva</button>
-                    <button class="tab-btn" data-target="tab-tatil">Tátil</button>
-                    <button class="tab-btn" data-target="tab-motora">Motora</button>
-                    <button class="tab-btn" data-target="tab-multi">Multissensorial</button>
+            
+            <div class="masonry-grid">
+                <div class="masonry-card glass-card fade-in-up">
+                    <h3 style="color: var(--color-eucalyptus-dark);">0-6 MESES</h3>
+                    <p><strong>Motor:</strong> sustenta cabeça, rola, senta com apoio</p>
+                    <p><strong>Linguagem:</strong> arrulha, balbucia, sorri</p>
+                    <p><strong>Montessori:</strong> móbiles, cesto de tesouros, tummy time</p>
                 </div>
                 
-                <div class="tabs-content-wrapper glass-card">
-                    <div class="tab-pane active" id="tab-visual">
-                        <div class="tab-flex">
-                            <div class="tab-text">
-                                <h3>Estimulação Visual</h3>
-                                <ul>
-                                    <li><strong>Contato próximo:</strong> Mantenha o rosto a 20-30 cm. Faça caretas suaves, sorria e mantenha o olhar.</li>
-                                    <li><strong>Alto contraste:</strong> Mostre cartões ou objetos em preto e branco, listras ou padrões simples. Movimente devagar.</li>
-                                    <li><strong>Luz natural suave:</strong> Exposição a sombras ou luz filtrada ajuda na maturação visual e no ritmo circadiano.</li>
-                                </ul>
-                            </div>
-                            <img src="images/bebe_13.png" alt="Estimulação Visual" class="tab-img">
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab-auditiva">
-                        <div class="tab-flex">
-                            <div class="tab-text">
-                                <h3>Estimulação Auditiva</h3>
-                                <ul>
-                                    <li><strong>Converse diariamente:</strong> Use "parentese" (voz melodiosa, lenta e aguda). Narre o que está fazendo.</li>
-                                    <li><strong>Cante e faça sons:</strong> Canções de ninar ou imitação de sons suaves ativam a memória auditiva.</li>
-                                    <li><strong>Turn-taking:</strong> Responda aos grunhidos dele como em uma conversa real.</li>
-                                </ul>
-                            </div>
-                            <img src="images/bebe_12.png" alt="Estimulação Auditiva" class="tab-img">
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab-tatil">
-                        <div class="tab-flex">
-                            <div class="tab-text">
-                                <h3>Estimulação Tátil</h3>
-                                <ul>
-                                    <li><strong>Pele a pele:</strong> Diariamente. Regula temperatura, batimentos e reduz o cortisol.</li>
-                                    <li><strong>Massagem suave:</strong> Após o banho, com óleo. Melhora a maturação cerebral.</li>
-                                    <li><strong>Texturas diferentes:</strong> Toque mãozinhas e pezinhos com tecidos macios, pelúcia ou dedos.</li>
-                                </ul>
-                            </div>
-                            <img src="images/bebe_14.png" alt="Estimulação Tátil" class="tab-img">
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab-motora">
-                        <div class="tab-flex">
-                            <div class="tab-text">
-                                <h3>Estimulação Motora</h3>
-                                <ul>
-                                    <li><strong>Tummy time:</strong> 1-3 minutos, 2-3x ao dia (de bruços, supervisionado). Fortalece pescoço e tronco.</li>
-                                    <li><strong>Movimentos suaves:</strong> "Pedalar" perninhas, abrir/fechar mãozinhas.</li>
-                                    <li><strong>Posições variadas:</strong> Segurar de frente, de lado ou no ombro estimula grupos musculares diferentes.</li>
-                                </ul>
-                            </div>
-                            <img src="images/bebe_15.png" alt="Estimulação Motora" class="tab-img">
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab-multi">
-                        <div class="tab-flex">
-                            <div class="tab-text">
-                                <h3>Olfato e Multissensorial</h3>
-                                <ul>
-                                    <li><strong>Estimulação Olfativa:</strong> Exposição ao cheiro dos pais (roupa usada ou pele).</li>
-                                    <li><strong>Integração Multissensorial:</strong> Durante a mamada ou troca, fale, faça contato visual e toque carinhoso.</li>
-                                    <li><strong>Banho e Passeio:</strong> Água morna + voz calma. Passeios breves com sons da natureza.</li>
-                                </ul>
-                            </div>
-                            <img src="images/bebe_16.png" alt="Multissensorial" class="tab-img">
-                        </div>
-                    </div>
+                <div class="masonry-card glass-card fade-in-up" style="transition-delay: 100ms;">
+                    <h3 style="color: var(--color-eucalyptus-dark);">6-12 MESES</h3>
+                    <p><strong>Motor:</strong> senta sozinho, engatinha, fica em pé</p>
+                    <p><strong>Linguagem:</strong> sílabas, primeiras palavras, gestos</p>
+                    <p><strong>Montessori:</strong> encaixes, livros de tecido, empilhar</p>
+                </div>
+
+                <div class="masonry-card glass-card fade-in-up" style="transition-delay: 200ms;">
+                    <h3 style="color: var(--color-eucalyptus-dark);">12-24 MESES</h3>
+                    <p><strong>Motor:</strong> caminha, corre, sobe escadas</p>
+                    <p><strong>Linguagem:</strong> 50+ palavras, combina duas palavras</p>
+                    <p><strong>Montessori:</strong> faz de conta, massa de modelar, pintura</p>
+                </div>
+                
+                <div class="masonry-card glass-card fade-in-up" style="transition-delay: 300ms;">
+                    <h3 style="color: var(--color-eucalyptus-dark);">24-36 MESES</h3>
+                    <p><strong>Motor:</strong> pula, pedala, alterna pés na escada</p>
+                    <p><strong>Linguagem:</strong> frases de 3+ palavras, narrativas</p>
+                    <p><strong>Montessori:</strong> recorte, jogos de regras, projetos de arte</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DICAS & AMAMENTAÇÃO MASONRY -->
-    <section id="guias" class="guides-section container">
-        <div class="section-header fade-in-up">
-            <h2 class="section-title">Orientações Essenciais</h2>
-        </div>
-        
-        <div class="masonry-grid">
-            <div class="masonry-card glass-card fade-in-up">
-                <i data-feather="heart" class="card-icon"></i>
-                <h3>Amamentação</h3>
-                <p>Ofereça em livre demanda. Frequência de 8 a 12 mamadas/24h no início. Sinais de saciedade: mãos relaxadas e solta o peito espontaneamente. Não se esqueça de beber muita água!</p>
+    <!-- SINAIS DE ALERTA GERAIS -->
+    <section class="container content-section fade-in-up">
+        <div class="content-card alert-section">
+            <h2>Sinais de Alerta</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--color-charcoal);">Um sinal isolado nem sempre indica um problema. Porém, a presença de múltiplos sinais ou regressão de habilidades já adquiridas merece avaliação profissional.</p>
+            <p><strong>Procure ajuda se observar:</strong></p>
+            <ul>
+                <li>Perda de habilidades já conquistadas</li>
+                <li>Atrasos em múltiplas áreas simultaneamente</li>
+                <li>Ausência de contato visual ou interesse social</li>
+                <li>Movimentos repetitivos e estereotipados</li>
+                <li>Rigidez extrema ou hipotonia marcante</li>
+                <li>Ausência de linguagem após 18 meses</li>
+                <li>Não responde ao nome consistentemente</li>
+            </ul>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,107,107,0.1); border-radius: 8px;">
+                <p><strong>Confie na sua intuição.</strong> Você conhece seu filho melhor do que ninguém. Quando algo não parece certo, busque orientação. A intervenção precoce faz toda a diferença.</p>
             </div>
-            
-            <div class="masonry-card glass-card fade-in-up" style="transition-delay: 100ms;">
-                <i data-feather="clock" class="card-icon"></i>
-                <h3>Rotina do Recém-nascido</h3>
-                <p>Guiada pelo bebê. Ciclo básico: mamar → acordado brevemente → dormir (2-3 horas). Flexibilidade é chave, a rotina serve como guia, não como regra absoluta.</p>
-            </div>
-
-            <div class="masonry-card glass-card fade-in-up highlight" style="transition-delay: 200ms;">
-                <i data-feather="alert-circle" class="card-icon"></i>
-                <h3>O Que Ninguém Te Conta</h3>
-                <p>O *baby blues* afeta até 80% das mães. Noites serão longas, o bebê pode parecer "estranho" com bolinhas e espirros. Nem sempre o amor é instantâneo — o vínculo se constrói dia a dia.</p>
-            </div>
-            
-            <div class="masonry-card glass-card fade-in-up" style="transition-delay: 300ms;">
-                <i data-feather="book-open" class="card-icon"></i>
-                <h3>Dicas de Pesquisa</h3>
-                <p>Sessões de estímulo devem ser curtas (5-10 min). Evite telas, barulhos altos ou luzes piscando. Responsividade fortalece o apego seguro.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA PLANNER -->
-    <section class="cta-planner-section container text-center fade-in-up">
-        <div class="glass-card cta-planner-card">
-            <h2>Acesse seu Diário e Planner Interativo</h2>
-            <p>Garanta acesso exclusivo a ferramentas que vão ajudar você a organizar a rotina, registrar mamadas, fraldas e cuidar da sua saúde mental durante os primeiros meses.</p>
-            <a href="atividades.html" class="btn-primary" style="margin-top: 1.5rem;">Entrar na Área de Ferramentas</a>
         </div>
     </section>
 
     <!-- FOOTER / CTA -->
     <footer class="footer fade-in-up">
         <div class="container text-center">
-            <h2 class="footer-quote">"Você não precisa ser perfeita. Precisa apenas estar presente."</h2>
-            <p class="footer-desc">Cada toque, cada olhar, cada palavra suave está construindo o cérebro e o coração do seu bebê — sinapse a sinapse, amor a amor.</p>
+            <h2 class="footer-quote">"O desenvolvimento do seu filho não é uma corrida. Cada criança tem seu próprio ritmo, seu próprio tempo de florescer."</h2>
+            <p class="footer-desc">O mais importante que você pode oferecer é a sua presença. Estar ali, com atenção e amor, já é o maior estímulo que existe. Observe com carinho. Brinque com intenção. Celebre cada conquista, por menor que pareça. Você está fazendo um trabalho incrível.</p>
             
             <div class="cta-box glass-card">
-                <h3>Diário do Desenvolvimento Infantil (0 a 3 anos)</h3>
-                <p>Ebook completo disponível em Junho de 2026</p>
-                <span class="hashtag">#AjudeMeACreSer</span>
+                <h3>Referências Bibliográficas</h3>
+                <p style="font-size: 0.85rem; text-align: left; margin-top: 1rem;">
+                    • Shonkoff, J. P., Phillips, D. A. (2000). From Neurons to Neighborhoods.<br>
+                    • Kolb, B., & Gibb, R. (2011). Brain plasticity and behaviour.<br>
+                    • SBP (2022). Desenvolvimento Neuropsicomotor da Criança.<br>
+                    • CDC (2022). Learn the Signs. Act Early.<br>
+                    • E outras fontes de neurociência e psicologia infantil.
+                </p>
             </div>
             
             <div class="footer-bottom">
-                <p>Baseado nos estudos da neurociência (2024-2026). Desenvolvido com carinho.</p>
+                <p>Com carinho, Rita Oliveira. Baseado em Evidências científicas (SBP, CDC, OMS), neurociência e prática clínica.</p>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

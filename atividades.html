@@ -3,146 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Meu Diário Interativo e Planner. Ajude-me a creSer.">
-    <title>Diário & Planner | Ajude-me a creSer</title>
+    <meta name="description" content="Central de Ferramentas e Recursos. Ajude-me a creSer.">
+    <title>Ferramentas & Recursos | Ajude-me a creSer</title>
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Feather Icons for minimalist SVG icons -->
+    <link rel="stylesheet" href="global-nav.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body class="atividades-page">
 
-    <!-- HEADER DE ATIVIDADES -->
+    <nav class="global-nav fade-in-up">
+        <a href="index.html" class="nav-logo">Ajude-me a creSer</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="atividades.html" class="active">Ferramentas</a></li>
+        </ul>
+    </nav>
+
     <header class="atividades-header fade-in-up">
         <div class="container text-center">
-            <a href="index.html" class="btn-text back-link"><i data-feather="arrow-left"></i> Voltar para Início</a>
-            <h1 class="main-title">Meu Diário & Planner</h1>
-            <p class="subtitle">Sua área exclusiva para organizar a rotina, registrar conquistas e cuidar de você.</p>
+            <h1 class="main-title" style="font-size: 3.5rem;">Central de Ferramentas</h1>
+            <p class="subtitle">Recursos práticos para estimular o desenvolvimento do seu filho e organizar a rotina.</p>
         </div>
     </header>
 
-    <div class="container">
-        <div class="activities-grid main-grid">
+    <div class="container fade-in-up" style="margin-bottom: 4rem;">
+        <div class="month-grid">
+            <a href="entregavel-checklist.html" class="month-card">
+                <i data-feather="check-square" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
+                <h3>Checklist de Marcos</h3>
+                <p>Acompanhe detalhadamente o desenvolvimento mês a mês.</p>
+            </a>
             
-            <!-- PLANNER DIÁRIO -->
-            <section class="activity-card glass-card fade-in-up planner-section">
-                <h3><i data-feather="calendar" class="inline-icon"></i> Planner Diário</h3>
-                <p>Organize a rotina do bebê com flexibilidade. Registre horários de mamadas, sonecas e atividades.</p>
-                
-                <div class="planner-form">
-                    <div class="input-group">
-                        <input type="time" id="planner-time" class="planner-input">
-                        <select id="planner-type" class="planner-select">
-                            <option value="mamada">🍼 Mamada</option>
-                            <option value="soneca">💤 Soneca</option>
-                            <option value="tummy">🤸 Tummy Time</option>
-                            <option value="banho">🛁 Banho</option>
-                            <option value="outro">✨ Outro</option>
-                        </select>
-                        <button id="add-planner" class="btn-primary btn-add">+</button>
-                    </div>
-                </div>
-                
-                <ul id="planner-list" class="planner-list">
-                    <!-- Itens inseridos por JS -->
-                </ul>
-            </section>
+            <a href="entregavel-planner.html" class="month-card">
+                <i data-feather="calendar" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
+                <h3>Planner Mensal</h3>
+                <p>Organize a estimulação com um cronograma simples.</p>
+            </a>
 
-            <!-- CONTADORES RÁPIDOS -->
-            <section class="activity-card glass-card fade-in-up counters-section" style="transition-delay: 100ms;">
-                <h3><i data-feather="activity" class="inline-icon"></i> Rastreadores de Hoje</h3>
-                <p>Toque para adicionar rapidamente.</p>
-                
-                <div class="counters-container">
-                    <div class="counter-box">
-                        <h4>🍼 Mamadas</h4>
-                        <div class="counter-controls">
-                            <button id="btn-mamada-minus" class="btn-circle">-</button>
-                            <span id="count-mamada" class="counter-value">0</span>
-                            <button id="btn-mamada-plus" class="btn-circle">+</button>
-                        </div>
-                    </div>
-                    <div class="counter-box">
-                        <h4>🧻 Fraldas</h4>
-                        <div class="counter-controls">
-                            <button id="btn-fralda-minus" class="btn-circle">-</button>
-                            <span id="count-fralda" class="counter-value">0</span>
-                            <button id="btn-fralda-plus" class="btn-circle">+</button>
-                        </div>
-                    </div>
-                </div>
-                <button id="reset-counters" class="btn-text" style="margin-top:1rem; text-align:center; display:block; width:100%;">Zerar Contadores</button>
-            </section>
+            <a href="30-atividades.html" class="month-card">
+                <i data-feather="play" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
+                <h3>30 Atividades Práticas</h3>
+                <p>Ideias divertidas com o que você já tem em casa.</p>
+            </a>
 
-            <!-- CHECKLISTS MÚLTIPLOS -->
-            <section class="activity-card glass-card fade-in-up checklists-section" style="transition-delay: 200ms;">
-                <h3><i data-feather="check-circle" class="inline-icon"></i> Checklists</h3>
-                
-                <!-- Abas dos Checklists -->
-                <div class="tabs-nav checklist-tabs">
-                    <button class="tab-btn active" data-target="chk-bebe">Bebê</button>
-                    <button class="tab-btn" data-target="chk-mae">Mãe</button>
-                    <button class="tab-btn" data-target="chk-marcos">Marcos</button>
-                </div>
-                
-                <div class="tabs-content-wrapper no-min-height">
-                    <!-- Bebê -->
-                    <div class="tab-pane active" id="chk-bebe">
-                        <div class="checklist-container" id="checklist-bebe"></div>
-                    </div>
-                    <!-- Mãe -->
-                    <div class="tab-pane" id="chk-mae">
-                        <div class="checklist-container" id="checklist-mae"></div>
-                    </div>
-                    <!-- Marcos -->
-                    <div class="tab-pane" id="chk-marcos">
-                        <div class="checklist-container" id="checklist-marcos"></div>
-                    </div>
-                </div>
-                
-            </section>
+            <a href="cartoes-imprimir.html" class="month-card">
+                <i data-feather="printer" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
+                <h3>Cartões para Imprimir</h3>
+                <p>Fichas prontas para recortar e usar no dia a dia.</p>
+            </a>
 
-            <!-- MOOD TRACKER & RESPIRAÇÃO -->
-            <section class="activity-card glass-card fade-in-up" style="transition-delay: 300ms;">
-                <h3><i data-feather="heart" class="inline-icon"></i> Autocuidado & Emoções</h3>
-                
-                <div class="mood-tracker" style="margin-top:1rem;">
-                    <button class="mood-btn" data-mood="calma" title="Calma">😌</button>
-                    <button class="mood-btn" data-mood="cansada" title="Cansada">🥱</button>
-                    <button class="mood-btn" data-mood="sobrecarregada" title="Sobrecarregada">🤯</button>
-                    <button class="mood-btn" data-mood="feliz" title="Feliz">🥰</button>
-                    <button class="mood-btn" data-mood="chorosa" title="Chorosa">😢</button>
-                </div>
-                <div id="mood-response" class="mood-message"></div>
-
-                <div class="divider"></div>
-
-                <p style="text-align:center; font-weight: 500; margin-bottom: 1rem;">Minuto de Calma</p>
-                <div class="breathing-widget">
-                    <div class="breathing-circle" id="b-circle">
-                        <span id="b-text">Iniciar</span>
-                    </div>
-                </div>
-            </section>
+            <a href="audios-guiados.html" class="month-card">
+                <i data-feather="headphones" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
+                <h3>Áudios Guiados</h3>
+                <p>Meditações e pílulas de neuroplasticidade para as mães.</p>
+            </a>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer fade-in-up" style="margin-top: 4rem;">
-        <div class="container text-center">
-            <h2 class="footer-quote">"Cada interação conta."</h2>
-            <div class="footer-bottom">
-                <p>Baseado nos estudos da neurociência (2024-2026). Desenvolvido com carinho.</p>
+    <!-- MOOD TRACKER & RESPIRAÇÃO (Mantido do original) -->
+    <div class="container fade-in-up" style="max-width: 800px; margin-bottom: 6rem;">
+        <section class="activity-card glass-card">
+            <h3 style="text-align: center;"><i data-feather="heart" class="inline-icon"></i> Autocuidado Diário</h3>
+            
+            <div class="mood-tracker" style="margin-top:2rem;">
+                <button class="mood-btn" data-mood="calma" title="Calma">😌</button>
+                <button class="mood-btn" data-mood="cansada" title="Cansada">🥱</button>
+                <button class="mood-btn" data-mood="sobrecarregada" title="Sobrecarregada">🤯</button>
+                <button class="mood-btn" data-mood="feliz" title="Feliz">🥰</button>
+                <button class="mood-btn" data-mood="chorosa" title="Chorosa">😢</button>
             </div>
-        </div>
-    </footer>
+            <div id="mood-response" class="mood-message"></div>
 
-    <script src="atividades.js"></script>
+            <div class="divider"></div>
+
+            <p style="text-align:center; font-weight: 500; margin-bottom: 1rem; font-size: 1.2rem;">Minuto de Calma (Exercício de Respiração)</p>
+            <div class="breathing-widget">
+                <div class="breathing-circle" id="b-circle">
+                    <span id="b-text">Iniciar</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>
