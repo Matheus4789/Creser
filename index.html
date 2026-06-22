@@ -9,34 +9,41 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Reenie+Beanie&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="global-nav.css">
+    <link rel="stylesheet" href="theme.css">
     
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
+    <div class="grain-overlay" aria-hidden="true"></div>
 
     <!-- Global Navigation -->
     <nav class="global-nav fade-in-up">
         <a href="index.html" class="nav-logo">Ajude-me a creSer</a>
         <ul class="nav-links">
             <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="atividades.html">Ferramentas</a></li>
+            <li><a href="atividades.html" class="nav-pill">Atividades interativas</a></li>
         </ul>
     </nav>
 
     <!-- HERO SECTION -->
     <header class="hero" id="home">
         <div class="hero-bg"></div>
+        <div class="theme-blob green" aria-hidden="true" style="width:420px;height:420px;top:14%;left:-6rem;"></div>
+        <div class="theme-blob sand" aria-hidden="true" style="width:460px;height:460px;top:8%;right:-7rem;"></div>
         <div class="hero-content fade-in-up">
-            <h2 class="pre-title">Ajude-me a</h2>
+            <h2 class="pre-title cursive" style="font-size:2.8rem;">Ajude-me a</h2>
             <h1 class="main-title">creSer</h1>
             <p class="subtitle">Mapa do Desenvolvimento Infantil do Recém-Nascido aos 3 Anos</p>
             <p style="margin-bottom: 2rem;">Desenvolvido com base nas principais evidências da neurociência sobre o desenvolvimento cerebral nos primeiros 3 anos de vida — período de maior neuroplasticidade da existência humana.</p>
-            <a href="#fases" class="btn-primary">Explorar as Fases</a>
+            <div class="cta-row">
+                <a href="#fases" class="btn-primary">Explorar as fases</a>
+                <a href="atividades.html" class="btn-secondary"><i data-feather="grid" style="width:18px;height:18px;"></i> Atividades interativas</a>
+            </div>
             <div class="hero-author-card">
                 <img src="images/rita_profile.jpg" alt="Rita Oliveira" class="author-photo">
                 <div class="author-info">

@@ -3,93 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Central de Ferramentas e Recursos. Ajude-me a creSer.">
-    <title>Ferramentas & Recursos | Ajude-me a creSer</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <meta name="description" content="Área de Membros — sua central de ferramentas e recursos. Ajude-me a creSer.">
+    <title>Área de Membros | Ajude-me a creSer</title>
+
+    <!-- Google Fonts: Outfit + Reenie Beanie (tema Softly) + fontes da marca -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Reenie+Beanie&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="global-nav.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="area-membros.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body class="atividades-page">
+<body class="area-membros">
 
+    <!-- Grain overlay: textura de papel global -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- NAV pílula flutuante -->
     <nav class="global-nav fade-in-up">
-        <a href="index.html" class="nav-logo">Ajude-me a creSer</a>
+        <a href="index.html" class="nav-logo">
+            <span class="logo-dot" aria-hidden="true"></span>
+            creSer
+        </a>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="atividades.html" class="active">Ferramentas</a></li>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="atividades.html" class="nav-pill active">Atividades interativas</a></li>
         </ul>
+        <a href="index.html" class="nav-cta">Ver as fases</a>
     </nav>
 
-    <header class="atividades-header fade-in-up">
-        <div class="container text-center">
-            <h1 class="main-title" style="font-size: 3.5rem;">Central de Ferramentas</h1>
-            <p class="subtitle">Recursos práticos para estimular o desenvolvimento do seu filho e organizar a rotina.</p>
+    <!-- HERO -->
+    <header class="m-hero">
+        <div class="m-blob green b1" aria-hidden="true"></div>
+        <div class="m-blob sand b2" aria-hidden="true"></div>
+
+        <div class="m-hero-inner fade-in-up">
+            <span class="m-eyebrow">Área de membros</span>
+            <h1>Tudo para acompanhar cada <span class="cursive">fase</span> do seu bebê</h1>
+            <p class="m-sub">Seu cantinho calmo de ferramentas e recursos práticos para estimular o desenvolvimento e organizar a rotina, no seu próprio ritmo.</p>
+            <div class="m-cta-row">
+                <a href="#ferramentas" class="m-btn m-btn-primary">Explorar ferramentas</a>
+                <a href="index.html#fases" class="m-btn m-btn-secondary">Rever as fases</a>
+            </div>
         </div>
     </header>
 
-    <div class="container fade-in-up" style="margin-bottom: 4rem;">
-        <div class="month-grid">
-            <a href="entregavel-checklist.html" class="month-card">
-                <i data-feather="check-square" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
-                <h3>Checklist de Marcos</h3>
+    <!-- FERRAMENTAS -->
+    <section class="m-section" id="ferramentas">
+        <div class="m-section-head fade-in-up">
+            <h2>Seus recursos, num só lugar</h2>
+            <p>Cada material foi pensado para caber na sua rotina com leveza.</p>
+        </div>
+
+        <div class="m-tools-grid">
+            <a href="entregavel-checklist.html" class="m-tool-card fade-in-up">
+                <div class="m-tool-icon"><i data-feather="check-square"></i></div>
+                <span class="m-tool-label">Acompanhamento</span>
+                <h3>Checklist de marcos</h3>
                 <p>Acompanhe detalhadamente o desenvolvimento mês a mês.</p>
-            </a>
-            
-            <a href="entregavel-planner.html" class="month-card">
-                <i data-feather="calendar" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
-                <h3>Planner Mensal</h3>
-                <p>Organize a estimulação com um cronograma simples.</p>
+                <span class="m-tool-go">Abrir <i data-feather="arrow-right" style="width:16px;height:16px;"></i></span>
             </a>
 
-            <a href="30-atividades.html" class="month-card">
-                <i data-feather="play" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
-                <h3>30 Atividades Práticas</h3>
+            <a href="entregavel-planner.html" class="m-tool-card fade-in-up" style="transition-delay:80ms;">
+                <div class="m-tool-icon"><i data-feather="calendar"></i></div>
+                <span class="m-tool-label">Rotina</span>
+                <h3>Planner mensal</h3>
+                <p>Organize a estimulação com um cronograma simples e gentil.</p>
+                <span class="m-tool-go">Abrir <i data-feather="arrow-right" style="width:16px;height:16px;"></i></span>
+            </a>
+
+            <a href="30-atividades.html" class="m-tool-card fade-in-up" style="transition-delay:160ms;">
+                <div class="m-tool-icon"><i data-feather="play"></i></div>
+                <span class="m-tool-label">Brincar</span>
+                <h3>30 atividades práticas</h3>
                 <p>Ideias divertidas com o que você já tem em casa.</p>
+                <span class="m-tool-go">Abrir <i data-feather="arrow-right" style="width:16px;height:16px;"></i></span>
             </a>
 
-            <a href="cartoes-imprimir.html" class="month-card">
-                <i data-feather="printer" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
-                <h3>Cartões para Imprimir</h3>
+            <a href="cartoes-imprimir.html" class="m-tool-card fade-in-up" style="transition-delay:240ms;">
+                <div class="m-tool-icon"><i data-feather="printer"></i></div>
+                <span class="m-tool-label">Imprimir</span>
+                <h3>Cartões para imprimir</h3>
                 <p>Fichas prontas para recortar e usar no dia a dia.</p>
+                <span class="m-tool-go">Abrir <i data-feather="arrow-right" style="width:16px;height:16px;"></i></span>
             </a>
 
-            <a href="audios-guiados.html" class="month-card">
-                <i data-feather="headphones" style="width: 48px; height: 48px; color: var(--color-eucalyptus); margin-bottom: 1rem;"></i>
-                <h3>Áudios Guiados</h3>
+            <a href="audios-guiados.html" class="m-tool-card fade-in-up" style="transition-delay:320ms;">
+                <div class="m-tool-icon"><i data-feather="headphones"></i></div>
+                <span class="m-tool-label">Para você</span>
+                <h3>Áudios guiados</h3>
                 <p>Meditações e pílulas de neuroplasticidade para as mães.</p>
+                <span class="m-tool-go">Abrir <i data-feather="arrow-right" style="width:16px;height:16px;"></i></span>
             </a>
         </div>
-    </div>
+    </section>
 
-    <!-- MOOD TRACKER & RESPIRAÇÃO (Mantido do original) -->
-    <div class="container fade-in-up" style="max-width: 800px; margin-bottom: 6rem;">
-        <section class="activity-card glass-card">
-            <h3 style="text-align: center;"><i data-feather="heart" class="inline-icon"></i> Autocuidado Diário</h3>
-            
-            <div class="mood-tracker" style="margin-top:2rem;">
-                <button class="mood-btn" data-mood="calma" title="Calma">😌</button>
-                <button class="mood-btn" data-mood="cansada" title="Cansada">🥱</button>
-                <button class="mood-btn" data-mood="sobrecarregada" title="Sobrecarregada">🤯</button>
-                <button class="mood-btn" data-mood="feliz" title="Feliz">🥰</button>
-                <button class="mood-btn" data-mood="chorosa" title="Chorosa">😢</button>
+    <!-- COMO APROVEITAR (scroll horizontal) -->
+    <section class="m-section m-scroll-section">
+        <div class="m-scroll-head m-section-head fade-in-up" style="text-align:left;margin-left:0;">
+            <h2>Como aproveitar o seu dia</h2>
+            <p>Pequenos momentos, ao longo do dia, fazem toda a diferença.</p>
+        </div>
+        <div class="m-scroll-track fade-in-up">
+            <div class="m-scroll-card">
+                <span class="m-scroll-time">Manhã</span>
+                <p>Cinco minutos de tummy time depois da mamada.</p>
             </div>
-            <div id="mood-response" class="mood-message"></div>
+            <div class="m-scroll-card">
+                <span class="m-scroll-time">Meio-dia</span>
+                <p>Uma atividade sensorial do seu checklist.</p>
+            </div>
+            <div class="m-scroll-card">
+                <span class="m-scroll-time">Tarde</span>
+                <p>Leitura com contraste e muita conversa.</p>
+            </div>
+            <div class="m-scroll-card">
+                <span class="m-scroll-time">Fim de tarde</span>
+                <p>Música suave e um áudio guiado só seu.</p>
+            </div>
+            <div class="m-scroll-card">
+                <span class="m-scroll-time">Noite</span>
+                <p>Marque no planner o que floresceu hoje.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="divider"></div>
+    <!-- FAQ -->
+    <section class="m-section m-faq">
+        <div class="m-section-head fade-in-up">
+            <h2>Perguntas frequentes</h2>
+            <p>O essencial para você usar tudo com tranquilidade.</p>
+        </div>
 
-            <p style="text-align:center; font-weight: 500; margin-bottom: 1rem; font-size: 1.2rem;">Minuto de Calma (Exercício de Respiração)</p>
-            <div class="breathing-widget">
-                <div class="breathing-circle" id="b-circle">
-                    <span id="b-text">Iniciar</span>
+        <div class="m-faq-list fade-in-up">
+            <div class="m-faq-item">
+                <button class="m-faq-q" type="button">
+                    Como acesso os materiais?
+                    <span class="m-faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="m-faq-a">
+                    <div class="m-faq-a-inner">Todos os recursos ficam aqui nesta área de membros. Basta tocar no card da ferramenta que deseja abrir — checklist, planner, atividades, cartões ou áudios.</div>
                 </div>
             </div>
-        </section>
-    </div>
+
+            <div class="m-faq-item">
+                <button class="m-faq-q" type="button">
+                    Posso imprimir o planner e os cartões?
+                    <span class="m-faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="m-faq-a">
+                    <div class="m-faq-a-inner">Sim. O planner mensal e os cartões foram preparados para imprimir em folha A4. Use a opção de impressão do seu navegador sempre que quiser uma versão física.</div>
+                </div>
+            </div>
+
+            <div class="m-faq-item">
+                <button class="m-faq-q" type="button">
+                    Para qual idade são as atividades?
+                    <span class="m-faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="m-faq-a">
+                    <div class="m-faq-a-inner">Os recursos cobrem do recém-nascido aos 3 anos. Cada fase traz o que esperar, sinais de alerta e atividades simples com recursos de casa.</div>
+                </div>
+            </div>
+
+            <div class="m-faq-item">
+                <button class="m-faq-q" type="button">
+                    Preciso seguir uma ordem certa?
+                    <span class="m-faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="m-faq-a">
+                    <div class="m-faq-a-inner">Não. Cada criança tem seu próprio ritmo. Use os materiais como apoio, no seu tempo, observando com carinho e celebrando cada conquista.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSINATURA -->
+    <section class="m-section m-closing">
+        <div class="m-note-card fade-in-up">
+            <p>O mais importante que você pode oferecer é a sua presença. Estar ali, com atenção e amor, já é o maior estímulo que existe.</p>
+            <span class="m-sign">
+                <span class="m-sign-line" aria-hidden="true"></span>
+                <span class="cursive">com carinho, Rita</span>
+            </span>
+        </div>
+    </section>
 
     <script src="script.js"></script>
     <script>
+        // Ícones
         feather.replace();
+
+        // FAQ accordion (altura 0 -> auto via max-height)
+        document.querySelectorAll('.m-faq-q').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = btn.closest('.m-faq-item');
+                var panel = item.querySelector('.m-faq-a');
+                var isOpen = item.classList.toggle('open');
+                panel.style.maxHeight = isOpen ? panel.scrollHeight + 'px' : null;
+            });
+        });
     </script>
 </body>
 </html>
